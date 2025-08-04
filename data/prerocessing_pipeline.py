@@ -6,6 +6,7 @@ from tensorflow.keras import layers
 # constants
 SEQ_LEN = 128
 BATCH_SIZE = 64
+AUTOTUNE = tf.data.AUTOTUNE
 
 def load_and_clean_lines(file_path, min_words=3, max_words=250):
     """
@@ -103,3 +104,14 @@ def create_dataset(file_path, tokenizer, start_packer, is_training=False):
     Returns:
         tf.data.Dataset: Preprocessed batched dataset.
     """
+    ds = tf.data.TextLineDataset(file_path)
+
+    if is_training:
+        ds = ds.cache().shuffle(10000)
+
+    ds = (
+        ds.map(lambda x: preprocess_fn(x, tokenizer, start_packer), num_parallel_calls=AUTOTUNE)
+          .batch(BATCH_SIZE)
+          .prefetch(AUTOTUNE)
+    )
+    return ds
