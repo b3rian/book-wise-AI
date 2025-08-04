@@ -7,7 +7,7 @@ from tensorflow.keras import layers
 SEQ_LEN = 128
 BATCH_SIZE = 64
 
-def load_and_clean_lines(file_path, min_words=5, max_words=250):
+def load_and_clean_lines(file_path, min_words=3, max_words=250):
     """
     Load and clean lines from a given text file.
 
@@ -27,3 +27,14 @@ def load_and_clean_lines(file_path, min_words=5, max_words=250):
         for line in lines
         if line.strip() and min_words < len(line.strip().split()) < max_words
     ]
+
+def write_cleaned_lines(output_path, lines):
+    """
+    Write cleaned lines to a text file.
+
+    Args:
+        output_path (str): Destination file path.
+        lines (list): List of cleaned strings.
+    """
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write("\n".join(lines))
