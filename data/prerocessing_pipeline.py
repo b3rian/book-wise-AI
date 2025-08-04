@@ -139,3 +139,10 @@ def main():
 
     # Build tokenizer and packer
     tokenizer, start_packer = build_tokenizer(vocab_path, seq_len=SEQ_LEN)
+
+    # Create datasets
+    train_ds = create_dataset(train_clean, tokenizer, start_packer, is_training=True)
+    val_ds = create_dataset(valid_clean, tokenizer, start_packer)
+    test_ds = create_dataset(test_clean, tokenizer, start_packer)
+
+    return train_ds, val_ds, test_ds
