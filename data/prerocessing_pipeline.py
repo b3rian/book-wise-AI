@@ -118,9 +118,9 @@ def create_dataset(file_path, tokenizer, start_packer, is_training=False):
 
 def main():
     # Base directory containing raw and vocab files
-    raw_data_dir = "/content/simplebooks_data/simplebooks/simplebooks-92-raw"
+    raw_data_dir = "/kaggle/input/simple-books/simplebooks/simplebooks-2-raw"
     clean_data_dir = raw_data_dir  # Reusing the same directory
-    vocab_path = "/content/simplebooks_data/simplebooks/simplebooks-92/train.vocab"
+    vocab_path = "/kaggle/input/simple-books/simplebooks/simplebooks-92/train.vocab"
 
     # Define file paths
     train_raw = os.path.join(raw_data_dir, "train.txt")
