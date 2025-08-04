@@ -126,8 +126,16 @@ def main():
     train_raw = os.path.join(raw_data_dir, "train.txt")
     valid_raw = os.path.join(raw_data_dir, "valid.txt")
     test_raw = os.path.join(raw_data_dir, "test.txt")
-    
+
     # Cleaned file paths
     train_clean = os.path.join(clean_data_dir, "train_clean.txt")
     valid_clean = os.path.join(clean_data_dir, "valid_clean.txt")
     test_clean = os.path.join(clean_data_dir, "test_clean.txt")
+
+    # Clean and save text
+    write_cleaned_lines(train_clean, load_and_clean_lines(train_raw))
+    write_cleaned_lines(valid_clean, load_and_clean_lines(valid_raw))
+    write_cleaned_lines(test_clean, load_and_clean_lines(test_raw))
+
+    # Build tokenizer and packer
+    tokenizer, start_packer = build_tokenizer(vocab_path, seq_len=SEQ_LEN)
