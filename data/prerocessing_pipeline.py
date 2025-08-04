@@ -72,3 +72,16 @@ def build_tokenizer(vocab_path, seq_len=128):
     )
 
     return tokenizer, start_packer
+
+def preprocess_fn(text, tokenizer, start_packer):
+    """
+    Tokenizes and packs input text for training.
+
+    Args:
+        text (tf.Tensor): Raw text input.
+        tokenizer: WordPiece tokenizer.
+        start_packer: Layer to pack and add [BOS] token.
+
+    Returns:
+        tuple: (input_tensor, label_tensor)
+    """
