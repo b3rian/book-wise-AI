@@ -64,3 +64,11 @@ def build_tokenizer(vocab_path, seq_len=128):
         sequence_length=seq_len,
         lowercase=False,
     )
+    
+    # Create a StartEndPacker layer to handle start token and padding
+    start_packer = keras_hub.layers.StartEndPacker(
+        sequence_length=seq_len,
+        start_value=tokenizer.token_to_id("[BOS]"),
+    )
+
+    return tokenizer, start_packer
