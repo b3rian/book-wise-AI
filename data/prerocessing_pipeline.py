@@ -54,7 +54,7 @@ def build_tokenizer(vocab_path, seq_len=128):
         start_packer: A layer that adds a start token and pads/truncates to `seq_len`.
     """
     with open(vocab_path, "r", encoding="utf-8") as f:
-        vocab = [line.strip().split("/t")[0] for line in f if line.strip()]
+        vocab = [line.strip().split("\t")[0] for line in f if line.strip()]
 
      # Add special tokens
     reserved_tokens = ["[PAD]", "[UNK]", "[BOS]"]
