@@ -85,3 +85,7 @@ def preprocess_fn(text, tokenizer, start_packer):
     Returns:
         tuple: (input_tensor, label_tensor)
     """
+    tokens = tokenizer(text)
+    inputs = start_packer(tokens)
+    labels = tokens  # Model learns to predict next tokens
+    return inputs, labels
