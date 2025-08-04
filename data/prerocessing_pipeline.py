@@ -121,3 +121,13 @@ def main():
     raw_data_dir = "/content/simplebooks_data/simplebooks/simplebooks-92-raw"
     clean_data_dir = raw_data_dir  # Reusing the same directory
     vocab_path = "/content/simplebooks_data/simplebooks/simplebooks-92/train.vocab"
+
+    # Define file paths
+    train_raw = os.path.join(raw_data_dir, "train.txt")
+    valid_raw = os.path.join(raw_data_dir, "valid.txt")
+    test_raw = os.path.join(raw_data_dir, "test.txt")
+    
+    # Cleaned file paths
+    train_clean = os.path.join(clean_data_dir, "train_clean.txt")
+    valid_clean = os.path.join(clean_data_dir, "valid_clean.txt")
+    test_clean = os.path.join(clean_data_dir, "test_clean.txt")
