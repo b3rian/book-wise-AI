@@ -149,4 +149,5 @@ def main():
     return train_ds, val_ds, test_ds, tokenizer, start_packer 
 
 # Run the preprocessing pipeline
-train_ds, val_ds, test_ds, tokenizer, start_packer = main()
+if __name__ == "__main__":
+    train_ds, val_ds, test_ds, tokenizer, start_packer = main()
