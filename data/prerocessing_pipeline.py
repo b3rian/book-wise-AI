@@ -4,9 +4,9 @@ import keras_nlp as keras_hub
 from tensorflow.keras import layers
 
 # constants
-SEQ_LEN = 128
-BATCH_SIZE = 64
-AUTOTUNE = tf.data.AUTOTUNE
+SEQ_LEN = 128 # Maximum sequence length for tokenization
+BATCH_SIZE = 64 # Batch size for training
+AUTOTUNE = tf.data.AUTOTUNE # Auto-tune dataset performance
 
 def load_and_clean_lines(file_path, min_words=3, max_words=250):
     """
