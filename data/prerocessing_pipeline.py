@@ -38,7 +38,7 @@ def write_cleaned_lines(output_path, lines):
         lines (list): List of cleaned strings.
     """
     with open(output_path, 'w', encoding='utf-8') as f:
-        f.write("/n".join(lines))
+        f.write("\n".join(lines))
 
 
 def build_tokenizer(vocab_path, seq_len=128):
