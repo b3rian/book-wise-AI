@@ -146,7 +146,7 @@ def main():
     val_ds = create_dataset(valid_clean, tokenizer, start_packer)
     test_ds = create_dataset(test_clean, tokenizer, start_packer)
 
-    return train_ds, val_ds, test_ds
+    return train_ds, val_ds, test_ds, tokenizer, start_packer 
 
 # Run the preprocessing pipeline
-train_ds, val_ds, test_ds = main()
+train_ds, val_ds, test_ds, tokenizer, start_packer = main()
