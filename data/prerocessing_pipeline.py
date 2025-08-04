@@ -89,3 +89,17 @@ def preprocess_fn(text, tokenizer, start_packer):
     inputs = start_packer(tokens)
     labels = tokens  # Model learns to predict next tokens
     return inputs, labels
+
+def create_dataset(file_path, tokenizer, start_packer, is_training=False):
+    """
+    Create a tf.data.Dataset pipeline.
+
+    Args:
+        file_path (str): Path to the cleaned dataset file.
+        tokenizer: Tokenizer instance.
+        start_packer: Token packer layer.
+        is_training (bool): Whether the dataset is used for training.
+
+    Returns:
+        tf.data.Dataset: Preprocessed batched dataset.
+    """
