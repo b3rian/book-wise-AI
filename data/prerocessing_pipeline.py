@@ -107,11 +107,11 @@ def create_dataset(file_path, tokenizer, start_packer, is_training=False):
     ds = tf.data.TextLineDataset(file_path)
 
     if is_training:
-        ds = ds.cache().shuffle(10000)
+        ds = ds.cache().shuffle(10000) # Shuffle and cache dataset for training
 
     ds = (
         ds.map(lambda x: preprocess_fn(x, tokenizer, start_packer), num_parallel_calls=AUTOTUNE)
-          .batch(BATCH_SIZE)
-          .prefetch(AUTOTUNE)
+          .batch(BATCH_SIZE) # Batch the dataset
+          .prefetch(AUTOTUNE) # Prefetch for performance
     )
     return ds
