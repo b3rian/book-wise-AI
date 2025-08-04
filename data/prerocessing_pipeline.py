@@ -54,3 +54,13 @@ def build_tokenizer(vocab_path, seq_len=128):
     """
     with open(vocab_path, "r", encoding="utf-8") as f:
         vocab = [line.strip().split("/t")[0] for line in f if line.strip()]
+
+     # Add special tokens
+    reserved_tokens = ["[PAD]", "[UNK]", "[BOS]"]
+    vocab = reserved_tokens + vocab
+
+    tokenizer = keras_hub.tokenizers.WordPieceTokenizer(
+        vocabulary=vocab,
+        sequence_length=seq_len,
+        lowercase=False,
+    )
