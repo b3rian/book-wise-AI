@@ -19,3 +19,11 @@ def load_and_clean_lines(file_path, min_words=5, max_words=250):
     Returns:
         list: A list of cleaned text lines.
     """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    return [
+        line.strip()
+        for line in lines
+        if line.strip() and min_words < len(line.strip().split()) < max_words
+    ]
