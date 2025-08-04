@@ -146,3 +146,6 @@ def main():
     test_ds = create_dataset(test_clean, tokenizer, start_packer)
 
     return train_ds, val_ds, test_ds
+
+# Run the preprocessing pipeline
+train_ds, val_ds, test_ds = main()
