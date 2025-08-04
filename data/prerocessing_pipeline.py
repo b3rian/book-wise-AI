@@ -104,7 +104,7 @@ def create_dataset(file_path, tokenizer, start_packer, is_training=False):
     Returns:
         tf.data.Dataset: Preprocessed batched dataset.
     """
-    ds = tf.data.TextLineDataset(file_path)
+    ds = tf.data.TextLineDataset(file_path) # Load text lines from file
 
     if is_training:
         ds = ds.cache().shuffle(10000) # Shuffle and cache dataset for training
@@ -115,3 +115,9 @@ def create_dataset(file_path, tokenizer, start_packer, is_training=False):
           .prefetch(AUTOTUNE) # Prefetch for performance
     )
     return ds
+
+def main():
+    # Base directory containing raw and vocab files
+    raw_data_dir = "/content/simplebooks_data/simplebooks/simplebooks-92-raw"
+    clean_data_dir = raw_data_dir  # Reusing the same directory
+    vocab_path = "/content/simplebooks_data/simplebooks/simplebooks-92/train.vocab"
