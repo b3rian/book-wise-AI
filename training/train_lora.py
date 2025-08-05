@@ -6,10 +6,10 @@ from models.lora_model import lora_model
 # Constants (ensure these are defined beforehand)
 ALPHA = 32
 RANK = 8
-EPOCHS = 3  # Or your preferred value
-train_ds = ...  # Your preprocessed dataset
+EPOCHS = 3  
+train_ds = ...  
 test_ds
-gpu_memory_callback = ...  # Optional memory monitor callback
+gpu_memory_callback = ...  
 
 # Optimizer and Loss Setup
 def get_optimizer_and_loss():
