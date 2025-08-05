@@ -41,3 +41,17 @@ for layer_idx in range(lora_model.backbone.num_layers):
     )
 
 print("✅ LoRA layers successfully injected into GPT-2 model.")
+
+output = lora_model(preprocessor(["LoRA is very useful for quick LLM finetuning"])[0])
+print("✅ Inference successful")
+
+for layer in lora_model._flatten_layers():
+    lst_of_sublayers = list(layer._flatten_layers())
+
+    if len(lst_of_sublayers) == 1:  # "leaves of the model"
+        if layer.name in ["lora_A", "lora_B"]:
+            layer.trainable = True
+        else:
+            layer.trainable = False
+
+print("✅ Only LoRA layers are set as trainable")
