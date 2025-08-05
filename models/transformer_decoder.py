@@ -80,3 +80,7 @@ class TransformerBlock(layers.Layer):
         Returns:
         - tf.Tensor: Output tensor of same shape as input
         """
+        # Extract batch size and sequence length
+        input_shape = ops.shape(inputs)
+        batch_size = input_shape[0]
+        seq_len = input_shape[1]
