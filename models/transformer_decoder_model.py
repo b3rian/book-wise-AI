@@ -2,12 +2,14 @@ from tensorflow import keras
 from keras import layers, ops
 from models.transformer_decoder_block import TransformerBlock
 from models.embeddings import TokenAndPositionEmbedding
+from configs import config
 
-vocab_size = 20000  # Only consider the top 20k words
-maxlen = 80  # Max sequence size
-embed_dim = 256  # Embedding size for each token
-num_heads = 2  # Number of attention heads
-feed_forward_dim = 256 
+# Access model hyperparameters
+maxlen = config.model["max_sequence_length"]
+vocab_size = config.model["vocab_size"]
+embed_dim = config.model["embed_dim"]
+num_heads = config.model["num_heads"]
+ff_dim = config.model["feed_forward_dim"]
 
 def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
     """
