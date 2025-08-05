@@ -36,7 +36,7 @@ class TokenAndPositionEmbedding(layers.Layer):
         Returns:
             tf.Tensor: Output tensor of shape (batch_size, sequence_length, embed_dim).
         """
-        seq_len = ops.shape(x)[-1]
+        seq_len = ops.shape(x)[-1] # Get the sequence length from the input tensor shape
 
         # Create position indices [0, 1, 2, ..., sequence_length - 1]
         positions = ops.arange(0, seq_len)
