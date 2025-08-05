@@ -36,3 +36,11 @@ def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
 
     # Use sparse categorical cross-entropy with logits for loss calculation
     loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+
+    # Compile model - we only optimize based on the first output (logits)
+    model.compile(
+        optimizer="adam",
+        loss=[loss_fn, None],  # No loss applied to the intermediate output `x`
+    )
+
+    return model
