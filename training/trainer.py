@@ -3,7 +3,7 @@
 import tensorflow as tf
 from utils.metrics import get_classification_metrics
 from utils.logger import get_callbacks
-
+import keras
 
 class Trainer:
     def __init__(
