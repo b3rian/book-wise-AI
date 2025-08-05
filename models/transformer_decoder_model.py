@@ -50,13 +50,4 @@ def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
     # Define model with both logits and intermediate embeddings as output (for optional use)
     model = keras.Model(inputs=inputs, outputs=[logits, x], name="transformer_decoder")
 
-    # Use sparse categorical cross-entropy with logits for loss calculation
-    loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-
-    # Compile model - we only optimize based on the first output (logits)
-    model.compile(
-        optimizer="adam",
-        loss=[loss_fn, None],  # No loss applied to the intermediate output `x`
-    )
-
     return model
