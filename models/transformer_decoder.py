@@ -57,4 +57,14 @@ class TransformerBlock(layers.Layer):
         - rate (float): Dropout rate.
         - name (str): Optional name for the layer.
         """
-        super().__init__(name=name)
+        super().__init__(name=name) # Initialize the base Layer class
+
+        self.att = layers.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = keras.Sequential([
+            layers.Dense(ff_dim, activation="relu"),  # Position-wise feedforward
+            layers.Dense(embed_dim)
+        ])
+        self.layernorm1 = layers.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = layers.LayerNormalization(epsilon=1e-6)
+        self.dropout1 = layers.Dropout(rate)
+        self.dropout2 = layers.Dropout(rate)
