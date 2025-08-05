@@ -17,3 +17,16 @@ def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
     Returns:
         keras.Model: Compiled Keras model ready for training.
     """
+    # Input layer expecting integer token IDs
+    inputs = layers.Input(shape=(maxlen,), dtype="int32", name="input_tokens")
+
+    # Token and position embeddings
+    embedding_layer = TokenAndPositionEmbedding(maxlen, vocab_size, embed_dim)
+    x = embedding_layer(inputs)
+
+    # Transformer block with causal masking
+    transformer_block = TransformerBlock(embed_dim, num_heads, feed_forward_dim)
+    x = transformer_block(x)
+
+    # Final dense layer maps to vocabulary size for language modeling
+    logits = layers.Dense(vocab_size, name="output_logits")(x)
