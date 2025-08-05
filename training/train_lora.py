@@ -1,17 +1,17 @@
 import tensorflow as tf
 from tensorflow import keras
 import os
+from models.lora_model import lora_model
 
 # Constants (ensure these are defined beforehand)
 ALPHA = 32
 RANK = 8
 EPOCHS = 3  # Or your preferred value
 train_ds = ...  # Your preprocessed dataset
+test_ds
 gpu_memory_callback = ...  # Optional memory monitor callback
 
-# -------------------------------
 # Optimizer and Loss Setup
-# -------------------------------
 def get_optimizer_and_loss():
     optimizer = keras.optimizers.AdamW(
         learning_rate=5e-5,
@@ -27,27 +27,21 @@ def get_optimizer_and_loss():
 
 optimizer, loss = get_optimizer_and_loss()
 
-# -------------------------------
 # Compile LoRA Model
-# -------------------------------
 lora_model.compile(
     optimizer=optimizer,
     loss=loss,
     weighted_metrics=["accuracy"],
 )
 
-# -------------------------------
 # Train Model
-# -------------------------------
 lora_model.fit(
     train_ds,
     epochs=EPOCHS,
     callbacks=[gpu_memory_callback],  # Optional
 )
 
-# -------------------------------
 # Merge LoRA Weights Into Base Model
-# -------------------------------
 for layer_idx in range(lora_model.backbone.num_layers):
     decoder_layer = lora_model.backbone.get_layer(f"transformer_layer_{layer_idx}")
     self_attention_layer = decoder_layer._self_attention_layer
