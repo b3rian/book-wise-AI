@@ -1,0 +1,22 @@
+# config.yaml
+
+model:
+  max_sequence_length: 128
+  vocab_size: 10000
+  embed_dim: 256
+  num_heads: 4
+  feed_forward_dim: 1024
+
+training:
+  batch_size: 32
+  epochs: 5
+  buffer_size: 10000
+
+tokens:
+  bos_token: "[BOS]"
+  eos_token: "[EOS]"
+
+paths:
+  train_path: "data/raw/train.txt"
+  valid_path: "data/raw/valid.txt"
+  test_path: "data/raw/test.txt"
