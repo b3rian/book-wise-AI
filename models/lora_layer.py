@@ -2,7 +2,6 @@ import math
 import tensorflow as tf
 from tensorflow import keras
 
-
 class LoraLayer(keras.layers.Layer):
     """
     Implements the Low-Rank Adaptation (LoRA) mechanism by wrapping an existing Dense or EinsumDense layer.
