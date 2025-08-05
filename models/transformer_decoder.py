@@ -36,3 +36,13 @@ def causal_attention_mask(batch_size, n_dest, n_src, dtype):
     ], axis=0)
     
     return ops.tile(mask, mult)  # Final shape: (batch_size, n_dest, n_src)
+
+class TransformerBlock(layers.Layer):
+    """
+    A single transformer decoder block implementing:
+    - Causal self-attention (no lookahead)
+    - Feedforward neural network (FFN)
+    - Residual connections
+    - Layer normalization
+    - Dropout for regularization
+    """
