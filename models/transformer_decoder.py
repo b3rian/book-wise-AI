@@ -68,3 +68,15 @@ class TransformerBlock(layers.Layer):
         self.layernorm2 = layers.LayerNormalization(epsilon=1e-6)
         self.dropout1 = layers.Dropout(rate)
         self.dropout2 = layers.Dropout(rate)
+
+    def call(self, inputs, training=False):
+        """
+        Executes the forward pass of the transformer block.
+
+        Parameters:
+        - inputs (tf.Tensor): Input tensor of shape (batch_size, seq_len, embed_dim)
+        - training (bool): Whether the call is in training mode (enables dropout)
+
+        Returns:
+        - tf.Tensor: Output tensor of same shape as input
+        """
