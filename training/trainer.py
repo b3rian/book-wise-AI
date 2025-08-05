@@ -62,7 +62,7 @@ class Trainer:
         # Compile model
         self.model.compile(
             optimizer=optimizer,
-            loss=loss_fn,
+            loss=[loss_fn, None],
             metrics=get_classification_metrics()
         )
 
