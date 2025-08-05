@@ -33,8 +33,9 @@ def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
     x = embedding_layer(inputs)
 
     # Transformer block with causal masking
-    transformer_block = TransformerBlock(embed_dim, num_heads, feed_forward_dim)
-    x = transformer_block(x)
+    # Stack Transformer blocks dynamically
+    for _ in range(num_layers):
+        x = TransformerBlock(embed_dim, num_heads, ff_dim)(x)
 
     # Final dense layer maps to vocabulary size for language modeling
     logits = layers.Dense(vocab_size, name="output_logits")(x)
