@@ -72,3 +72,18 @@ for layer_idx in range(lora_model.backbone.num_layers):
     self_attention_layer._value_dense = value_lora.original_layer
 
 print("✅ LoRA weights merged into base model successfully.")
+
+# Evaluate model
+test_loss, test_accuracy = lora_model.evaluate(test_ds)
+print(f"✅ Test Loss: {test_loss:.4f}")
+print(f"✅ Test Accuracy: {test_accuracy:.4f}")
+
+import os
+
+# Create export directory
+export_dir = "exports2"
+os.makedirs(export_dir, exist_ok=True)
+
+# Save the model
+lora_model.save(os.path.join(export_dir, "gpt2_lora_merged.keras"))
+print("✅ Model saved to 'exports/gpt2_lora_merged.keras'")
