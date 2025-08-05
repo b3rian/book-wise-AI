@@ -1,5 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
+import os
 
 # Constants (ensure these are defined beforehand)
 ALPHA = 32
@@ -77,8 +78,6 @@ print("✅ LoRA weights merged into base model successfully.")
 test_loss, test_accuracy = lora_model.evaluate(test_ds)
 print(f"✅ Test Loss: {test_loss:.4f}")
 print(f"✅ Test Accuracy: {test_accuracy:.4f}")
-
-import os
 
 # Create export directory
 export_dir = "exports2"
