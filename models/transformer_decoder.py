@@ -46,3 +46,15 @@ class TransformerBlock(layers.Layer):
     - Layer normalization
     - Dropout for regularization
     """
+    def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1, name=None):
+        """
+        Initializes the transformer block.
+
+        Parameters:
+        - embed_dim (int): Dimension of the token embeddings.
+        - num_heads (int): Number of attention heads.
+        - ff_dim (int): Hidden dimension of the feedforward network.
+        - rate (float): Dropout rate.
+        - name (str): Optional name for the layer.
+        """
+        super().__init__(name=name)
