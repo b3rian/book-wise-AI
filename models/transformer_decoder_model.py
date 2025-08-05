@@ -30,3 +30,9 @@ def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
 
     # Final dense layer maps to vocabulary size for language modeling
     logits = layers.Dense(vocab_size, name="output_logits")(x)
+
+    # Define model with both logits and intermediate embeddings as output (for optional use)
+    model = keras.Model(inputs=inputs, outputs=[logits, x], name="transformer_decoder")
+
+    # Use sparse categorical cross-entropy with logits for loss calculation
+    loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
