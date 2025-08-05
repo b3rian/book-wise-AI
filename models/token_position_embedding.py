@@ -24,3 +24,15 @@ class TokenAndPositionEmbedding(layers.Layer):
         super().__init__()
         self.token_emb = layers.Embedding(input_dim=vocab_size, output_dim=embed_dim)
         self.pos_emb = layers.Embedding(input_dim=maxlen, output_dim=embed_dim)
+
+    
+    def call(self, x):
+        """
+        Applies token and positional embeddings to the input.
+
+        Args:
+            x (tf.Tensor): Input tensor of shape (batch_size, sequence_length).
+
+        Returns:
+            tf.Tensor: Output tensor of shape (batch_size, sequence_length, embed_dim).
+        """
