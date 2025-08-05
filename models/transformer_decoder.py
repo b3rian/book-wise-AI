@@ -18,3 +18,10 @@ def causal_attention_mask(batch_size, n_dest, n_src, dtype):
     Returns:
     - tf.Tensor: A lower triangular mask of shape (batch_size, n_dest, n_src)
     """
+    # Create destination and source position indices
+    i = ops.arange(n_dest)[:, None]  # Shape: (n_dest, 1)
+    j = ops.arange(n_src)            # Shape: (n_src,)
+
+    # Compute lower triangular matrix (causal mask)
+    mask_matrix = i >= j - n_src + n_dest
+    mask = ops.cast(mask_matrix, dtype)  # Convert boolean mask to specified dtype
