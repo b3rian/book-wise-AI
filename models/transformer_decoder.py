@@ -84,3 +84,11 @@ class TransformerBlock(layers.Layer):
         input_shape = ops.shape(inputs)
         batch_size = input_shape[0]
         seq_len = input_shape[1]
+
+        # Generate causal mask to block attention to future tokens
+        causal_mask = causal_attention_mask(
+            batch_size=batch_size,
+            n_dest=seq_len,
+            n_src=seq_len,
+            dtype="bool"
+        )
