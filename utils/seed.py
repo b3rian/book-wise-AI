@@ -19,3 +19,24 @@ def set_seed(seed: int = 42) -> None:
         >>> from utils.seed import set_seed
         >>> set_seed(123)
     """
+    
+    # Set Python built-in randomness seed
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    random.seed(seed)
+
+    # Set NumPy seed
+    np.random.seed(seed)
+
+    # Set TensorFlow randomness
+    tf.random.set_seed(seed)
+
+    # Keras-specific additional seed setting for deterministic initialization
+    tf.keras.utils.set_random_seed(seed)
+
+    # Enable full determinism in TensorFlow operations
+    try:
+        tf.config.experimental.enable_op_determinism()
+    except AttributeError:
+        print("[WARNING] `enable_op_determinism` not available in this TensorFlow version.")
+
+    print(f"[INFO] Global seed set to {seed}")
