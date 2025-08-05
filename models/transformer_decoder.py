@@ -102,3 +102,8 @@ class TransformerBlock(layers.Layer):
         )
         attention_output = self.dropout1(attention_output, training=training)
         out1 = self.layernorm1(inputs + attention_output)  # Residual + Norm
+
+        # Feedforward network
+        ffn_output = self.ffn(out1)
+        ffn_output = self.dropout2(ffn_output, training=training)
+        return self.layernorm2(out1 + ffn_output)  # Residual + Norm
