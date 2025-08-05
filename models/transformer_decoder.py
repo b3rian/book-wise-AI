@@ -92,3 +92,13 @@ class TransformerBlock(layers.Layer):
             n_src=seq_len,
             dtype="bool"
         )
+        # Apply causal multi-head self-attention
+        attention_output = self.att(
+            query=inputs,
+            value=inputs,
+            key=inputs,
+            attention_mask=causal_mask,
+            training=training
+        )
+        attention_output = self.dropout1(attention_output, training=training)
+        out1 = self.layernorm1(inputs + attention_output)  # Residual + Norm
