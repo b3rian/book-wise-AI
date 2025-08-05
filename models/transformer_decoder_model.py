@@ -3,6 +3,12 @@ from keras import layers, ops
 from models.transformer_decoder_block import TransformerBlock
 from models.embeddings import TokenAndPositionEmbedding
 
+vocab_size = 20000  # Only consider the top 20k words
+maxlen = 80  # Max sequence size
+embed_dim = 256  # Embedding size for each token
+num_heads = 2  # Number of attention heads
+feed_forward_dim = 256 
+
 def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
     """
     Builds and compiles a simple transformer-based language model.
