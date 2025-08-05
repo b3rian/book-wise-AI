@@ -25,3 +25,14 @@ def causal_attention_mask(batch_size, n_dest, n_src, dtype):
     # Compute lower triangular matrix (causal mask)
     mask_matrix = i >= j - n_src + n_dest
     mask = ops.cast(mask_matrix, dtype)  # Convert boolean mask to specified dtype
+
+    # Reshape to add batch dimension
+    mask = ops.reshape(mask, [1, n_dest, n_src])
+
+    # Tile the mask to match the batch size
+    mult = ops.concatenate([
+        ops.expand_dims(batch_size, -1),  # Shape: [1]
+        ops.convert_to_tensor([1, 1])     # Shape: [2]
+    ], axis=0)
+    
+    return ops.tile(mask, mult)  # Final shape: (batch_size, n_dest, n_src)
