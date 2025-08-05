@@ -25,6 +25,13 @@ def create_model(maxlen, vocab_size, embed_dim, num_heads, feed_forward_dim):
     Returns:
         keras.Model: Compiled Keras model ready for training.
     """
+    maxlen = config.model["max_sequence_length"]
+    vocab_size = config.model["vocab_size"]
+    embed_dim = config.model["embed_dim"]
+    num_heads = config.model["num_heads"]
+    ff_dim = config.model["feed_forward_dim"]
+    num_layers = config.model.get("num_transformer_blocks", 4)
+    
     # Input layer expecting integer token IDs
     inputs = layers.Input(shape=(maxlen,), dtype="int32", name="input_tokens")
 
