@@ -40,6 +40,7 @@ class Trainer:
         optimizer_cfg = training_cfg["optimizer"]
         opt_name = optimizer_cfg["name"].lower()
         lr = training_cfg["learning_rate"]["initial"]
+        loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
         # Create optimizer
         if opt_name == "adam":
@@ -61,10 +62,7 @@ class Trainer:
         # Compile model
         self.model.compile(
             optimizer=optimizer,
-            loss=tf.keras.losses.CategoricalCrossentropy(
-                from_logits=False,
-                label_smoothing=training_cfg.get("label_smoothing", 0.1)
-            ),
+            loss=loss_fn,
             metrics=get_classification_metrics()
         )
 
