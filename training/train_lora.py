@@ -4,8 +4,8 @@ import os
 from models.lora_model import lora_model
 
 # Constants (ensure these are defined beforehand)
-ALPHA = 32
-RANK = 8
+ALPHA = 32.0
+RANK = 4
 EPOCHS = 3  
 train_ds = ...  
 test_ds

@@ -3,8 +3,8 @@ import keras_nlp as keras_hub  # Or use: import keras_nlp.models as keras_hub
 from lora_layer import LoraLayer  # Assuming you've saved it as lora_layer.py
 
 # Step 2: Set LoRA parameters
-RANK = 8
-ALPHA = 32
+RANK = 4
+ALPHA = 32.0
 SEQ_LENGTH = 128
 PRESET = "gpt2_base_en"
 
