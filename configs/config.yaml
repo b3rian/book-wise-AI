@@ -19,6 +19,6 @@ tokens:
   eos_token: "[EOS]"
 
 paths:
-  train_path: "data/raw/train.txt"
-  valid_path: "data/raw/valid.txt"
-  test_path: "data/raw/test.txt"
+  raw_data_dir: "/content/simplebooks_data/simplebooks/simplebooks-2-raw"
+  clean_data_dir: "/content/simplebooks_clean"
+  vocab_path: "/content/simplebooks_data/simplebooks/simplebooks-92/train.vocab"
