@@ -17,18 +17,11 @@ from utils.logging import get_callbacks
 from data.prerocessing_pipeline import train_ds, val_ds, test_ds
 from utils.seed import set_seed
 from models.transformer_decoder_model import create_model
+from configs import config
 
-# -------------------------------------------------------------------------
-# Step 1: Load configurations from YAML
-# -------------------------------------------------------------------------
-CONFIG_PATH = "configs/resnet.yml"
-with open(CONFIG_PATH, "r") as f:
-    config = yaml.safe_load(f)
 
-# -------------------------------------------------------------------------
 # Step 2: Set random seed for full reproducibility
-# -------------------------------------------------------------------------
-set_seed(config["seed"])
+set_seed = config.training["seed"]
 
 # -------------------------------------------------------------------------
 # Step 3: Load training, validation, and test datasets

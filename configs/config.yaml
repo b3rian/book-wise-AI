@@ -12,6 +12,7 @@ training:
   batch_size: 32
   epochs: 5
   buffer_size: 10000
+  seed: 42
 
 tokens:
   bos_token: "[BOS]"
