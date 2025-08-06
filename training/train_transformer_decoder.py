@@ -59,9 +59,7 @@ trainer = Trainer(
 
 model = trainer.train()
 
-# -------------------------------------------------------------------------
 # Step 6: Evaluate final model on validation and test datasets
-# -------------------------------------------------------------------------
 print("\n✅ Evaluating model on validation set...")
 val_loss, val_acc = model.evaluate(val_ds)
 print(f"📊 Final Validation Accuracy: {val_acc:.4f}")
@@ -70,9 +68,7 @@ print("\n🧪 Evaluating model on test set...")
 test_loss, test_acc = model.evaluate(test_ds)
 print(f"🧪 Test Accuracy: {test_acc:.4f}")
 
-# -------------------------------------------------------------------------
 # Step 7: Save final trained model to disk
-# -------------------------------------------------------------------------
 os.makedirs("exports", exist_ok=True)
 model_path = "exports/custom_model.keras"
 model.save(model_path)
