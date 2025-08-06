@@ -20,10 +20,13 @@ training:
     beta_1: 0.9
     beta_2: 0.999
     epsilon: 1e-07
+  weight_decay: 0.01
 
 tokens:
   bos_token: "[BOS]"
   eos_token: "[EOS]"
+  pad_token: "[PAD]"
+  unk_token: "[UNK]"
 
 paths:
   raw_data_dir: "/content/simplebooks_data/simplebooks/simplebooks-2-raw"
