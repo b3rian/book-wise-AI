@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 import keras_nlp as keras_hub 
 from tensorflow.keras import layers
+from configs import config
 
 # constants
 SEQ_LEN = 128 # Maximum sequence length for tokenization
@@ -118,10 +119,10 @@ def create_dataset(file_path, tokenizer, start_packer, is_training=False):
 
 def main():
     # Base directory containing raw and vocab files
-    raw_data_dir = "/content/simplebooks_data/simplebooks/simplebooks-2-raw"
-    clean_data_dir = "/content/simplebooks_clean"
+    raw_data_dir = config.paths["raw_data_dir"]
+    clean_data_dir = config.paths["clean_data_dir"]
     os.makedirs(clean_data_dir, exist_ok=True)
-    vocab_path = "/content/simplebooks_data/simplebooks/simplebooks-92/train.vocab"
+    vocab_path = config.paths["vocab_path"]
 
     # Define file paths
     train_raw = os.path.join(raw_data_dir, "train.txt")
