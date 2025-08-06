@@ -1,8 +1,8 @@
 """Trainer class for managing the training process of a Keras model."""
 
 import tensorflow as tf
-from utils.metrics import get_classification_metrics
-from utils.logger import get_callbacks
+from utils.metrics import get_metrics
+from utils.logging import get_callbacks
 import keras
 from configs import config
 
@@ -64,7 +64,7 @@ class Trainer:
         self.model.compile(
             optimizer=optimizer,
             loss=[loss_fn, None],
-            metrics=get_classification_metrics()
+            metrics=get_metrics()
         )
 
     def train(self) -> tf.keras.Model:
@@ -77,7 +77,7 @@ class Trainer:
         self.model.fit(
             self.train_ds,
             validation_data=self.val_ds,
-            epochs=self.config["training"]["epochs"],
+            epochs=self.config.training["epochs"],
             verbose=1,
             callbacks=self.callbacks
         )
