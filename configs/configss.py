@@ -1,7 +1,7 @@
 import yaml
 
 class Config:
-    def __init__(self, config_path='config.yaml'):
+    def __init__(self, config_path='config.yml'):
         with open(config_path, 'r') as file:
             self.cfg = yaml.safe_load(file)
 
