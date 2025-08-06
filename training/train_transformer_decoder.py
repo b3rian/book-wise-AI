@@ -12,11 +12,11 @@ Features:
 import os
 import yaml
 import tensorflow as tf
-from trainers.trainer import Trainer
-from utils.logger import get_callbacks
-from data.input_pipeline import get_datasets
+from training.trainer import Trainer
+from utils.logging import get_callbacks
+from data.prerocessing_pipeline import train_ds, val_ds, test_ds
 from utils.seed import set_seed
-from models.build_vgg_19 import simple_cnn_tiny_imagenet
+from models.transformer_decoder_model import create_model
 
 # -------------------------------------------------------------------------
 # Step 1: Load configurations from YAML
