@@ -20,12 +20,10 @@ from models.transformer_decoder_model import create_model
 from configs import config
 
 
-# Step 2: Set random seed for full reproducibility
+# Set random seed for full reproducibility
 set_seed = config.training["seed"]
 
-# -------------------------------------------------------------------------
-# Step 3: Load training, validation, and test datasets
-# -------------------------------------------------------------------------
+# Load training, validation, and test datasets
 data_dir = config["dataset"]["data_dir"]
 batch_size = config["dataset"]["batch_size"]
 
