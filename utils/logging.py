@@ -6,7 +6,7 @@ import tensorflow as tf
 def get_callbacks(
     base_dir: str = "experiments",
     monitor: str = "val_loss",
-    model_name: str = "model"
+    model_name: str = "transformer_decoder_model"
 ) -> list:
     """
     Creates standard Keras callbacks for training monitoring, checkpointing, and early stopping.

@@ -1,5 +1,3 @@
-# configs.py
-
 import yaml
 
 class Config:

@@ -1,8 +1,6 @@
-# config.yaml
-
 model:
   max_sequence_length: 128
-  vocab_size: 10000
+  vocab_size: 98308
   embed_dim: 256
   num_heads: 4
   feed_forward_dim: 1024
