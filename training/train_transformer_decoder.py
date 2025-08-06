@@ -17,7 +17,7 @@ from utils.logging import get_callbacks
 from data.prerocessing_pipeline import main
 from utils.seed import set_seed
 from models.transformer_decoder_model import create_model
-from configs.configs import config
+from configs.configss import config
 
 # Set random seed for full reproducibility
 set_seed = config.training["seed"]

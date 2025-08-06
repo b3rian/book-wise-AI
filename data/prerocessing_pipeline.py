@@ -2,7 +2,7 @@ import os
 import tensorflow as tf
 import keras_nlp as keras_hub 
 from tensorflow.keras import layers
-from configs.configs import config
+from configs.configss import config
 
 # constants
 SEQ_LEN = 128 # Maximum sequence length for tokenization
