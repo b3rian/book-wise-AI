@@ -4,6 +4,7 @@ import tensorflow as tf
 from utils.metrics import get_classification_metrics
 from utils.logger import get_callbacks
 import keras
+from configs import config
 
 class Trainer:
     def __init__(
@@ -36,10 +37,10 @@ class Trainer:
         Compile the model using settings from the configuration.
         Supports Adam and SGD optimizers with optional weight decay.
         """
-        training_cfg = self.config["training"]
+        training_cfg = self.config.training
         optimizer_cfg = training_cfg["optimizer"]
         opt_name = optimizer_cfg["name"].lower()
-        lr = training_cfg["learning_rate"]["initial"]
+        lr = training_cfg["optimizer"]["learning_rate"]
         loss_fn = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
         # Create optimizer
