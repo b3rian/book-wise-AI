@@ -14,33 +14,31 @@ import yaml
 import tensorflow as tf
 from training.trainer import Trainer
 from utils.logging import get_callbacks
-from data.prerocessing_pipeline import train_ds, val_ds, test_ds
+from data.prerocessing_pipeline import main
 from utils.seed import set_seed
 from models.transformer_decoder_model import create_model
 from configs import config
 
-
 # Set random seed for full reproducibility
 set_seed = config.training["seed"]
 
-# Load training, validation, and test datasets
+#Load training, validation, and test datasets
 data_dir = config["dataset"]["data_dir"]
 batch_size = config["dataset"]["batch_size"]
 
-train_ds, val_ds, test_ds = get_datasets(data_dir, batch_size)
+train_ds, val_ds, test_ds = main()
 
-# -------------------------------------------------------------------------
-# Step 4: Define model function that returns a compiled model
-# -------------------------------------------------------------------------
+# Define model function that returns a compiled model
 def model_fn():
-    return simple_cnn_tiny_imagenet(
-        input_shape=(64, 64, 3),
-        num_classes=config["model"]["num_classes"]
+    return create_model(
+        maxlen=config.model["max_sequence_length"],
+        vocab_size=config.model["vocab_size"],
+        embed_dim=config.model["embed_dim"],
+        num_heads=config.model["num_heads"],
+        feed_forward_dim=config.model["feed_forward_dim"]
     )
 
-# -------------------------------------------------------------------------
-# Step 5: Initialize Trainer and start training
-# -------------------------------------------------------------------------
+# Initialize Trainer and start training
 trainer = Trainer(
     model_fn=model_fn,
     train_ds=train_ds,
