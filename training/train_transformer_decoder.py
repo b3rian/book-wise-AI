@@ -70,6 +70,6 @@ print(f"🧪 Test Accuracy: {test_acc:.4f}")
 
 # Step 7: Save final trained model to disk
 os.makedirs("exports", exist_ok=True)
-model_path = "exports/custom_model.keras"
+model_path = "exports/transformer_decoder_model.keras"
 model.save(model_path)
 print(f"\n✅ Final model saved to: {model_path}")
