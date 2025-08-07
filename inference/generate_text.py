@@ -63,3 +63,10 @@ if __name__ == "__main__":
     parser.add_argument("--system_prompt", type=str, help="Optional system-level instruction")
 
     args = parser.parse_args()
+
+    try:
+        response = generate_completion(
+            prompt=args.prompt,
+            model=args.model,
+            system_prompt=args.system_prompt
+        )
