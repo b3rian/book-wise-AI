@@ -40,3 +40,10 @@ def generate_completion(
         messages.append({"role": "system", "content": system_prompt})
 
     messages.append({"role": role, "content": prompt})
+
+    try:
+        logger.info("Sending request to Groq API...")
+        response = client.chat.completions.create(
+            messages=messages,
+            model=model
+        )
