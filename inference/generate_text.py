@@ -53,3 +53,13 @@ def generate_completion(
     except Exception as e:
         logger.error(f"Error generating completion: {e}")
         raise
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Groq Text Generator")
+    parser.add_argument("prompt", type=str, help="The prompt to send to the model")
+    parser.add_argument("--model", type=str, default="meta-llama/llama-4-scout-17b-16e-instruct", help="Model ID to use")
+    parser.add_argument("--system_prompt", type=str, help="Optional system-level instruction")
+
+    args = parser.parse_args()
