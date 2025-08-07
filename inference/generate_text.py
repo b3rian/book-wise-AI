@@ -3,6 +3,7 @@ import logging
 from typing import List, Dict, Optional
 from dotenv import load_dotenv
 from groq import Groq, GroqError
+import argparse
 
 # Load environment variables from .env
 load_dotenv()
@@ -55,7 +56,6 @@ def generate_completion(
         raise
 
 if __name__ == "__main__":
-    import argparse
 
     parser = argparse.ArgumentParser(description="Groq Text Generator")
     parser.add_argument("prompt", type=str, help="The prompt to send to the model")
