@@ -18,3 +18,9 @@ def get_groq_client() -> Groq:
     if not api_key:
         logger.error("GROQ_API_KEY is not set in the environment.")
         raise EnvironmentError("Missing GROQ_API_KEY in environment.")
+    
+    try:
+        return Groq(api_key=api_key)
+    except GroqError as e:
+        logger.error(f"Failed to initialize Groq client: {e}")
+        raise
