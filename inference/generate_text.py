@@ -24,3 +24,12 @@ def get_groq_client() -> Groq:
     except GroqError as e:
         logger.error(f"Failed to initialize Groq client: {e}")
         raise
+
+def generate_completion(
+    prompt: str,
+    model: str = "meta-llama/llama-4-scout-17b-16e-instruct",
+    role: str = "user",
+    system_prompt: Optional[str] = None
+) -> str:
+    """Generate a completion from Groq API using a given prompt and model."""
+    client = get_groq_client()
