@@ -47,3 +47,9 @@ def generate_completion(
             messages=messages,
             model=model
         )
+        result = response.choices[0].message.content
+        logger.info("Response received successfully.")
+        return result
+    except Exception as e:
+        logger.error(f"Error generating completion: {e}")
+        raise
