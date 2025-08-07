@@ -11,18 +11,6 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-client = Groq(
-    api_key= os.environ.get("GROQ_API_KEY"),
-)
-
-chat_completion = client.chat.completions.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Explain the importance of fast language models",
-        }
-    ],
-    model="meta-llama/llama-4-scout-17b-16e-instruct",
-)
-
-print(chat_completion.choices[0].message.content)
+def get_groq_client() -> Groq:
+    """Initialize and return the Groq client with error handling."""
+    api_key = os.getenv("GROQ_API_KEY")
