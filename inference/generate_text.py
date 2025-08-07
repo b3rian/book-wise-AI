@@ -4,7 +4,12 @@ from typing import List, Dict, Optional
 from dotenv import load_dotenv
 from groq import Groq, GroqError
 
+# Load environment variables from .env
 load_dotenv()
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 client = Groq(
     api_key= os.environ.get("GROQ_API_KEY"),
