@@ -1,6 +1,8 @@
 import os
-from groq import Groq
+import logging
+from typing import List, Dict, Optional
 from dotenv import load_dotenv
+from groq import Groq, GroqError
 
 load_dotenv()
 
