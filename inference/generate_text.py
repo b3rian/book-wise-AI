@@ -70,3 +70,7 @@ if __name__ == "__main__":
             model=args.model,
             system_prompt=args.system_prompt
         )
+        print("\n--- Response ---\n")
+        print(response)
+    except Exception as e:
+        logger.exception("Failed to generate text completion.")
