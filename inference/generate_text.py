@@ -33,3 +33,10 @@ def generate_completion(
 ) -> str:
     """Generate a completion from Groq API using a given prompt and model."""
     client = get_groq_client()
+     
+    messages: List[Dict[str, str]] = []
+
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+
+    messages.append({"role": role, "content": prompt})
