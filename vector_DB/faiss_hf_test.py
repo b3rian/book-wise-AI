@@ -11,3 +11,12 @@ docs = [
     "He who has a why to live can bear almost any how.",
     "To live is to suffer, to survive is to find some meaning in the suffering."
 ]
+
+# 3. Convert docs to embeddings
+embeddings = model.encode(docs)
+embeddings = np.array(embeddings).astype("float32")
+
+# 4. Create FAISS index
+dim = embeddings.shape[1]  # embedding dimension
+index = faiss.IndexFlatL2(dim)
+index.add(embeddings)
