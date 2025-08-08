@@ -20,3 +20,5 @@ embeddings = np.array(embeddings).astype("float32")
 dim = embeddings.shape[1]  # embedding dimension
 index = faiss.IndexFlatL2(dim)
 index.add(embeddings)
+
+print(f"FAISS index contains {index.ntotal} vectors.")
