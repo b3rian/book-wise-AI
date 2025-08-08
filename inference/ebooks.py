@@ -35,6 +35,6 @@ def process_folder(input_folder, output_folder):
     print("Conversion complete!")
 
 # Example usage:
-input_folder = "D:\Documents\Nietzsche"  # Folder containing your EPUB files
-output_folder = "D:\Documents\text_files"  # Folder where TXT files will be saved
+input_folder = "D:/Documents/Nietzsche"  # Folder containing your EPUB files
+output_folder = "D:/Documents/text_files"  # Folder where TXT files will be saved
 process_folder(input_folder, output_folder)
