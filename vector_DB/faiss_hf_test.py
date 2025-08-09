@@ -15,6 +15,3 @@ query = "Finding purpose in suffering"
 
 
 print("\nQuery:", query)
-print("Top matches:")
-for i, idx in enumerate(indices[0]):
-    print(f"{i+1}. {docs[idx]} (distance: {distances[0][i]:.4f})")
