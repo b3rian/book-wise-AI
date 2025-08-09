@@ -15,4 +15,5 @@ results = collection.query(
     query_texts=["Finding purpose in suffering"],
     n_results=2
 )
+print(results)
 
