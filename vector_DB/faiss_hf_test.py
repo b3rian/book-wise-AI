@@ -10,7 +10,7 @@ docs = [
 ]
 
 
-# 5. Test a query
+
 query = "Finding purpose in suffering"
 query_emb = model.encode([query]).astype("float32")
 
