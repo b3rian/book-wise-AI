@@ -2,7 +2,7 @@
 
 
 
-# 2. Example documents
+
 docs = [
     "God is dead. God remains dead. And we have killed him.",
     "He who has a why to live can bear almost any how.",
