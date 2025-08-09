@@ -9,9 +9,6 @@ docs = [
     "To live is to suffer, to survive is to find some meaning in the suffering."
 ]
 
-# 3. Convert docs to embeddings
-embeddings = model.encode(docs)
-embeddings = np.array(embeddings).astype("float32")
 
 # 4. Create FAISS index
 dim = embeddings.shape[1]  # embedding dimension
