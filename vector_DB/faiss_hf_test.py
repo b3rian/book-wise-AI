@@ -13,5 +13,3 @@ docs = [
 
 query = "Finding purpose in suffering"
 
-
-print("\nQuery:", query)
