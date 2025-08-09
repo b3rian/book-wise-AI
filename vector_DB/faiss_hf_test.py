@@ -10,10 +10,7 @@ docs = [
 ]
 
 
-# 4. Create FAISS index
-dim = embeddings.shape[1]  # embedding dimension
-index = faiss.IndexFlatL2(dim)
-index.add(embeddings)
+
 
 print(f"FAISS index contains {index.ntotal} vectors.")
 
