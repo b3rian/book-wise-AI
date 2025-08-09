@@ -10,6 +10,7 @@ collection.add(
     "He who has a why to live can bear almost any how.",
     "To live is to suffer, to survive is to find some meaning in the suffering."
 ]
+)
 
 
 
