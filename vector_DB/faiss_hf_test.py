@@ -12,7 +12,7 @@ docs = [
 
 
 query = "Finding purpose in suffering"
-query_emb = model.encode([query]).astype("float32")
+
 
 # 6. Search
 k = 2  # top results
