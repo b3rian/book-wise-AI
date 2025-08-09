@@ -1,6 +1,7 @@
 import chromadb
 
-
+chromadb_client = chromadb.Client()
+collection = chromadb_client.create_collection(name="test_collection")
 
 docs = [
     "God is dead. God remains dead. And we have killed him.",
