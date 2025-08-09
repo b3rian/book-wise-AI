@@ -1,7 +1,6 @@
  
 
-# 1. Load Hugging Face embedding model
-model = SentenceTransformer("all-MiniLM-L6-v2")
+
 
 # 2. Example documents
 docs = [
