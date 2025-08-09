@@ -14,10 +14,6 @@ docs = [
 query = "Finding purpose in suffering"
 
 
-# 6. Search
-k = 2  # top results
-distances, indices = index.search(query_emb, k)
-
 print("\nQuery:", query)
 print("Top matches:")
 for i, idx in enumerate(indices[0]):
