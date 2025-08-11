@@ -29,21 +29,25 @@ def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
 
     return results
 
+# ---------- RAG Pipeline ----------
+def rag_query(user_query: str, persist_directory: str, collection_name: str, n_results: int = 3) -> str:
+    # Step 1: Retrieve relevant chunks
+    search_results = query_chromadb(persist_directory, collection_name, user_query, n_results=n_results)
 
-# Example usage
-if __name__ == "__main__":
-    persist_dir = r"D:\Documents\chromadb\nietzsche_db" 
-    collection_name = "nietzsche_books"
-    query = "What is plato?"
+    # Step 2: Combine retrieved chunks into context
+    context_chunks = search_results["documents"][0]
+    context_text = "\n\n".join(context_chunks)
 
-    results = query_chromadb(persist_dir, collection_name, query, n_results=3)
+    # Step 3: Build final prompt
+    prompt = f"Use the following excerpts from Nietzsche's works to answer the question.\n\nContext:\n{context_text}\n\nQuestion: {user_query}\n\nAnswer:"
 
-    # Pretty print results
-    for i, doc in enumerate(results["documents"][0]):
-        print(f"Result {i+1}:")
-        print(f"Document: {doc}")
-        print(f"Metadata: {results['metadatas'][0][i]}")
-        print(f"ID: {results['ids'][0][i]}")
-        print("-" * 40)
+    # Step 4: Call the LLM
+    answer = generate_completion(
+        prompt=prompt,
+        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite relevant excerpts where possible."
+    )
+
+    return answer
+
 
 
