@@ -16,3 +16,13 @@ try:
     collection = client.get_collection(COLLECTION_NAME)
 except:
     collection = client.create_collection(name=COLLECTION_NAME)
+
+def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        chunks.append(chunk)
+        start += chunk_size - overlap
+    return chunks
