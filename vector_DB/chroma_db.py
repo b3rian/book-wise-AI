@@ -18,10 +18,10 @@ try:
 except:
     collection = client.create_collection(name=COLLECTION_NAME)
 
-# ====== 2. Initialize Chroma's built-in embedding function ======
+# 2. Initialize Chroma's built-in embedding function
 embedding_fn = DefaultEmbeddingFunction()
 
-# ====== 3. Helper: Split text into chunks ======
+# 3. Helper: Split text into chunks
 def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
     chunks = []
     start = 0
