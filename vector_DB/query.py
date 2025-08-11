@@ -112,9 +112,6 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
         f"Answer:"
     )
 
-    # Step 3: Build final prompt
-    prompt = f"Use the following excerpts from Nietzsche's works to answer the question.\n\nContext:\n{context_text}\n\nQuestion: {user_query}\n\nAnswer:"
-
     # Step 4: Call the LLM
     answer = generate_completion(
         prompt=prompt,
