@@ -1,7 +1,8 @@
 import chromadb
 
-chromadb_client = chromadb.Client()
-collection = chromadb_client.create_collection(name="test_collection")
+client = chromadb.PersistentClient(path="./chroma_db")
+
+collection = client.create_collection(name="knowledge_base")
 
 collection.add(
     ids=["doc1", "doc2", "doc3"],
