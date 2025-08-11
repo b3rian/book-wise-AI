@@ -1,5 +1,6 @@
 import chromadb
 from chromadb.config import Settings
+from inference.generate_text import generate_completion, get_groq_client
 
 def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
     """
