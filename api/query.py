@@ -34,10 +34,10 @@ def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
         dict: Query results containing IDs, documents, and metadata.
     """
     # Load the persisted ChromaDB client
-    client = chromadb.PersistentClient(path=persist_directory)
+    client = chromadb.PersistentClient(path=PERSIST_DIR)
 
     # Get the collection
-    collection = client.get_collection(name=collection_name)
+    collection = client.get_collection(name=COLLECTION_NAME)
 
     # Perform the query
     results = collection.query(
@@ -49,7 +49,7 @@ def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
 
 def get_groq_client() -> Groq:
     """Initialize and return the Groq client with error handling."""
-    api_key = os.getenv("GROQ_API_KEY")
+    api_key = GROQ_API_KEY
 
     if not api_key:
         logger.error("GROQ_API_KEY is not set in the environment.")
@@ -63,7 +63,7 @@ def get_groq_client() -> Groq:
 
 def generate_completion(
     prompt: str,
-    model: str = "meta-llama/llama-4-scout-17b-16e-instruct",
+    model: str,
     role: str = "user",
     system_prompt: Optional[str] = None
 ) -> str:
@@ -81,14 +81,14 @@ def generate_completion(
         logger.info("Sending request to Groq API...")
         response = client.chat.completions.create(
             messages=messages,
-            model=model
+            model=MODEL_NAME
         )
         result = response.choices[0].message.content
         logger.info("Response received successfully.")
         return result
     except Exception as e:
-        logger.error(f"Error generating completion: {e}")
-        raise
+        logger.error(f"Groq API error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 def clean_title(filename: str) -> str:
     name_without_ext = filename.rsplit('.', 1)[0]  # remove extension
