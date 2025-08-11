@@ -6,6 +6,8 @@ from pydantic import BaseModel
 from dotenv import load_dotenv 
 import chromadb
 from api.query import rag_query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 
 # Load environment variables
 load_dotenv()
@@ -42,7 +44,7 @@ def startup_event():
 
 # ---------- Endpoints ----------
 @app.post("/prompt", response_model=QueryResponse)
-def rag_endpoint(request: QueryRequest):
+async def rag_endpoint(request: QueryRequest):
     try:
         answer = rag_query(
             request.prompt,
