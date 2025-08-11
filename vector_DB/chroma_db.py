@@ -10,3 +10,9 @@ CHUNK_OVERLAP = 50  # characters overlap between chunks
 
 # ====== 1. Initialize Chroma persistent client ======
 client = chromadb.PersistentClient(path=DB_PATH)
+
+# If collection exists, use it; otherwise, create it
+try:
+    collection = client.get_collection(COLLECTION_NAME)
+except:
+    collection = client.create_collection(name=COLLECTION_NAME)
