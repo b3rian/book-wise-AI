@@ -125,7 +125,7 @@ if __name__ == "__main__":
     PERSIST_DIR = r"D:\Documents\chromadb\nietzsche_db"  # Path to your ChromaDB folder
     COLLECTION_NAME = "nietzsche_books"
 
-    user_question = "What does Nietzsche say about the meaning of life?"
+    user_question = "Who are you?"
     response = rag_query(user_question, PERSIST_DIR, COLLECTION_NAME, n_results=5)
 
     print("\n--- LLM Response ---\n")
