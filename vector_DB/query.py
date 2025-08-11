@@ -115,7 +115,7 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     # Step 4: Call the LLM
     answer = generate_completion(
         prompt=prompt,
-        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite relevant excerpts where possible."
+        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts."
     )
 
     return answer
