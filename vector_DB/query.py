@@ -87,6 +87,7 @@ def generate_completion(
 def clean_title(filename: str) -> str:
         name_without_ext = filename.rsplit('.', 1)[0]  # remove extension
         cleaned = name_without_ext.replace('_', ' ')   # replace underscores with spaces
+        bold_title = f"**{cleaned}**" # add bold formatting
         return cleaned.strip().title()
 
 # ---------- RAG Pipeline ----------
