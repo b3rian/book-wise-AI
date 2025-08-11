@@ -26,7 +26,7 @@ app = FastAPI(
 
 # ---------- Models ----------
 class QueryRequest(BaseModel):
-    question: str
+    prompt: str
     n_results: Optional[int] = 3
 
 class QueryResponse(BaseModel):
@@ -37,11 +37,22 @@ class QueryResponse(BaseModel):
 def startup_event():
     global chroma_client, chroma_collection
     chroma_client = chromadb.PersistentClient(path=PERSIST_DIR)
-    chroma_collection = client.get_collection(name=COLLECTION_NAME)
+    chroma_collection = chroma_client.get_collection(name=COLLECTION_NAME)
     logger.info("ChromaDB client initialized successfully.")
 
 # ---------- Endpoints ----------
-@app.post("/query", response_model=QueryResponse)
-async def query_endpoint(req: QueryRequest):
-    answer = rag_query(req.question, req.n_results)
-    return QueryResponse(answer=answer)
+@app.post("/prompt", response_model=QueryResponse)
+def rag_endpoint(request: QueryRequest):
+    try:
+        answer = rag_query(
+            request.prompt,
+            persist_directory=PERSIST_DIR,
+            collection_name=COLLECTION_NAME,
+            n_results=request.n_results
+        )
+        return QueryResponse(answer=answer)
+    except EnvironmentError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        logger.exception("Error processing RAG query")
+        raise HTTPException(status_code=500, detail="Internal server error")
