@@ -26,3 +26,33 @@ def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
         chunks.append(chunk)
         start += chunk_size - overlap
     return chunks
+
+doc_id_counter = 1
+
+for filename in os.listdir(BOOKS_FOLDER):
+    if filename.endswith(".txt"):
+        file_path = os.path.join(BOOKS_FOLDER, filename)
+        
+        with open(file_path, "r", encoding="utf-8") as f:
+            text = f.read()
+        
+        # Remove extra spaces/newlines
+        text = text.strip().replace("\n", " ")
+        
+        # Split into chunks
+        chunks = chunk_text(text)
+        
+        # Add each chunk to Chroma (built-in embedding will be used)
+        ids = [f"doc{doc_id_counter + i}" for i in range(len(chunks))]
+        metadatas = [{"source": filename} for _ in chunks]
+        
+        collection.add(
+            documents=chunks,
+            ids=ids,
+            metadatas=metadatas
+        )
+        
+        doc_id_counter += len(chunks)
+        print(f"Stored {len(chunks)} chunks from {filename}")
+
+print("✅ All books embedded and stored in ChromaDB!")
