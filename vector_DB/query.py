@@ -90,8 +90,20 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     search_results = query_chromadb(persist_directory, collection_name, user_query, n_results=n_results)
 
     # Step 2: Combine retrieved chunks into context
-    context_chunks = search_results["documents"][0]
-    context_text = "\n\n".join(context_chunks)
+    context_with_titles = []
+    for doc, meta in zip(search_results["documents"][0], search_results["metadatas"][0]):
+        book_title = meta.get("source", "Unknown Source")
+        context_with_titles.append(f"From '{book_title}':\n{doc}")
+
+    context_text = "\n\n".join(context_with_titles)
+
+    # Step 3: Build final prompt
+    prompt = (
+        f"Use the following excerpts from Nietzsche's works to answer the question.\n\n"
+        f"{context_text}\n\n"
+        f"Question: {user_query}\n\n"
+        f"Answer:"
+    )
 
     # Step 3: Build final prompt
     prompt = f"Use the following excerpts from Nietzsche's works to answer the question.\n\nContext:\n{context_text}\n\nQuestion: {user_query}\n\nAnswer:"
