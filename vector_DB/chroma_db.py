@@ -3,7 +3,7 @@ import chromadb
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 
 # ====== CONFIG ======
-BOOKS_FOLDER = "/path/to/nietzsche_books"  # <-- change to your folder
+BOOKS_FOLDER = "/path/to/nietzsche_books"
 DB_PATH = "/path/to/chroma_storage/nietzsche_db"  # fixed storage location
 COLLECTION_NAME = "nietzsche_books"
 CHUNK_SIZE = 500
