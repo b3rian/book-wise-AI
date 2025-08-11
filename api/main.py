@@ -43,6 +43,11 @@ class QueryRequest(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
 
+# Health check endpoint
+@app.get("/health")
+def health_check():
+    return {"status": "API is working just fine"}
+
 # ---------- Startup ----------
 @app.on_event("startup")
 def startup_event():

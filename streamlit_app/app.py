@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Your FastAPI backend endpoint
-API_URL = "http://localhost:8000/query"  # Change this if deployed online
+API_URL = "http://127.0.0.1:8000/prompt" 
 
 st.set_page_config(page_title="Philosopher Bot", page_icon="🤖", layout="centered")
 
@@ -31,7 +31,7 @@ if submitted and user_input.strip():
 
     try:
         # Send to backend
-        response = requests.post(API_URL, json={"query": user_input})
+        response = requests.post(API_URL, json={"prompt": user_input})
         if response.status_code == 200:
             bot_reply = response.json().get("answer", "No response from bot.")
         else:
@@ -42,4 +42,4 @@ if submitted and user_input.strip():
 
     # Save bot reply
     st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-    st.experimental_rerun()
+    st.rerun()
