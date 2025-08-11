@@ -1,11 +1,12 @@
-import chromadb
-from chromadb.config import Settings
 import os
 import logging
 from typing import List, Dict, Optional
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from dotenv import load_dotenv
 from groq import Groq, GroqError
-import argparse
+import chromadb
+from chromadb.config import Settings
 
 # Load environment variables from .env
 load_dotenv()
@@ -19,6 +20,21 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 PERSIST_DIR = os.getenv("PERSIST_DIR", r"D:\Documents\chromadb\nietzsche_db")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "nietzsche_books")
 MODEL_NAME = os.getenv("GROQ_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
+
+# ---------- FastAPI App ----------
+app = FastAPI(
+    title="Nietzsche RAG API",
+    description="Retrieve and answer questions based on Nietzsche's works.",
+    version="1.0.0",
+)
+
+# ---------- Models ----------
+class QueryRequest(BaseModel):
+    prompt: str
+    n_results: Optional[int] = 3
+
+class QueryResponse(BaseModel):
+    answer: str
 
 def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
     """
@@ -121,9 +137,36 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     # Step 4: Call the LLM
     answer = generate_completion(
         prompt=prompt,
-        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts."
+        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
+        model=MODEL_NAME
     )
 
     return answer
+
+# ---------- Startup ----------
+@app.on_event("startup")
+def startup_event():
+    global chroma_client, chroma_collection
+    chroma_client = chromadb.PersistentClient(path=PERSIST_DIR)
+    chroma_collection = chroma_client.get_collection(name=COLLECTION_NAME)
+    logger.info("ChromaDB client initialized successfully.")
+
+# ---------- Endpoints ----------
+@app.post("/prompt", response_model=QueryResponse)
+def rag_endpoint(request: QueryRequest):
+    try:
+        answer = rag_query(
+            request.prompt,
+            persist_directory=PERSIST_DIR,
+            collection_name=COLLECTION_NAME,
+            n_results=request.n_results
+        )
+        return QueryResponse(answer=answer)
+    except EnvironmentError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        logger.exception("Error processing RAG query")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
 
 
