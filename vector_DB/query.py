@@ -84,6 +84,11 @@ def generate_completion(
         logger.error(f"Error generating completion: {e}")
         raise
 
+def clean_title(filename: str) -> str:
+        name_without_ext = filename.rsplit('.', 1)[0]  # remove extension
+        cleaned = name_without_ext.replace('_', ' ')   # replace underscores with spaces
+        return cleaned.strip().title()
+
 # ---------- RAG Pipeline ----------
 def rag_query(user_query: str, persist_directory: str, collection_name: str, n_results: int = 3) -> str:
     # Step 1: Retrieve relevant chunks
