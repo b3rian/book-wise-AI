@@ -97,7 +97,8 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     # Step 2: Combine retrieved chunks into context
     context_with_titles = []
     for doc, meta in zip(search_results["documents"][0], search_results["metadatas"][0]):
-        book_title = meta.get("source", "Unknown Source")
+        raw_title = meta.get("source", "Unknown Source")
+        book_title = clean_title(raw_title)  # Clean the title
         context_with_titles.append(f"From '{book_title}':\n{doc}")
 
     context_text = "\n\n".join(context_with_titles)
