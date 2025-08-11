@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 from groq import Groq, GroqError
 import chromadb
 from chromadb.config import Settings
+from fastapi.responses import StreamingResponse
+from typing import AsyncGenerator
+import json
 
 # Load environment variables from .env
 load_dotenv()
@@ -35,6 +38,9 @@ class QueryRequest(BaseModel):
 
 class QueryResponse(BaseModel):
     answer: str
+
+class StreamingResponseModel(BaseModel):
+    chunk: str
 
 def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
     """
@@ -95,15 +101,19 @@ def generate_completion(
 
     try:
         logger.info("Sending request to Groq API...")
-        response = client.chat.completions.create(
+        stream = client.chat.completions.create(
             messages=messages,
-            model=MODEL_NAME
+            model=MODEL_NAME,
+            stream=True
         )
-        result = response.choices[0].message.content
-        logger.info("Response received successfully.")
-        return result
+         
+        for chunk in stream:
+            content = chunk.choices[0].delta.content
+            if content:
+                yield content
+                
     except Exception as e:
-        logger.error(f"Groq API error: {e}")
+        logger.error(f"Groq API streaming error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 def clean_title(filename: str) -> str:
