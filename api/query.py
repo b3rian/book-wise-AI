@@ -14,6 +14,12 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# ---------- Config ----------
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+PERSIST_DIR = os.getenv("PERSIST_DIR", r"D:\Documents\chromadb\nietzsche_db")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME", "nietzsche_books")
+MODEL_NAME = os.getenv("GROQ_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
+
 def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
     """
     Query a ChromaDB persisted database.
