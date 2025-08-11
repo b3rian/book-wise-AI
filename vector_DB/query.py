@@ -115,8 +115,7 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     # Step 4: Call the LLM
     answer = generate_completion(
         prompt=prompt,
-        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works." \
-        "Always cite relevant excerpts where possible."
+        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite relevant excerpts where possible."
     )
 
     return answer
@@ -126,7 +125,7 @@ if __name__ == "__main__":
     PERSIST_DIR = r"D:\Documents\chromadb\nietzsche_db"  # Path to your ChromaDB folder
     COLLECTION_NAME = "nietzsche_books"
 
-    user_question = "What are your thoughts on christianity?"
+    user_question = "What are your thoughts on stoicism?"
     response = rag_query(user_question, PERSIST_DIR, COLLECTION_NAME, n_results=5)
 
     print("\n--- LLM Response ---\n")
