@@ -32,7 +32,7 @@ def chunk_text(text, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
         start += chunk_size - overlap
     return chunks
 
-# ====== 4. Process all books ======
+# 4. Process all books
 doc_id_counter = 1
 
 for filename in os.listdir(BOOKS_FOLDER):
