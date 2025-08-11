@@ -1,6 +1,6 @@
 import chromadb
 
-client = chromadb.PersistentClient(path="./chroma_db")
+client = chromadb.PersistentClient(path=r"D:\Documents\chromadb")
 
 collection = client.create_collection(name="knowledge_base")
 
