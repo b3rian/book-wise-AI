@@ -31,8 +31,8 @@ def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
 
 # Example usage
 if __name__ == "__main__":
-    persist_dir = r"D:\Documents\chromadb\nietzsche_db"  # Your ChromaDB folder path
-    collection_name = "nietzsche_books"  # Replace with your actual collection name
+    persist_dir = r"D:\Documents\chromadb\nietzsche_db" 
+    collection_name = "nietzsche_books"
     query = "What is the meaning of life?"
 
     results = query_chromadb(persist_dir, collection_name, query, n_results=5)
