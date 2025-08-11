@@ -88,7 +88,7 @@ def generate_completion(
     model: str,
     role: str = "user",
     system_prompt: Optional[str] = None
-) -> str:
+) -> AsyncGenerator[str, None]:
     """Generate a completion from Groq API using a given prompt and model."""
     client = get_groq_client()
      

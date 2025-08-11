@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv 
 import chromadb
-from api.query import rag_query
+from api.query import rag_query, query_chromadb
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
@@ -72,3 +72,4 @@ async def rag_endpoint(request: QueryRequest):
     except Exception as e:
         logger.exception("Error processing RAG query")
         raise HTTPException(status_code=500, detail="Internal server error")
+    
