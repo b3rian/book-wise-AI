@@ -33,9 +33,9 @@ def query_chromadb(persist_directory, collection_name, query_text, n_results=3):
 if __name__ == "__main__":
     persist_dir = r"D:\Documents\chromadb\nietzsche_db" 
     collection_name = "nietzsche_books"
-    query = "What is the meaning of life?"
+    query = "What is plato?"
 
-    results = query_chromadb(persist_dir, collection_name, query, n_results=5)
+    results = query_chromadb(persist_dir, collection_name, query, n_results=3)
 
     # Pretty print results
     for i, doc in enumerate(results["documents"][0]):
