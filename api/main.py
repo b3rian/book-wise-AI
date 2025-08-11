@@ -26,6 +26,15 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change to your frontend domain in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # ---------- Models ----------
 class QueryRequest(BaseModel):
     prompt: str
