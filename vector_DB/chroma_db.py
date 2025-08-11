@@ -1,20 +1,12 @@
+import os
 import chromadb
 
-client = chromadb.PersistentClient(path=r"D:\Documents\chromadb")
+# ====== CONFIG ======
+BOOKS_FOLDER = "/path/to/nietzsche_books"
+DB_PATH = "/path/to/chroma_storage/nietzsche_db"  # fixed location for persistence
+COLLECTION_NAME = "nietzsche_books"
+CHUNK_SIZE = 500  # characters per chunk
+CHUNK_OVERLAP = 50  # characters overlap between chunks
 
-collection = client.create_collection(name="knowledge_base")
-
-collection.add(
-    ids=["doc1", "doc2", "doc3"],
-    documents = [
-    "God is dead. God remains dead. And we have killed him.",
-    "He who has a why to live can bear almost any how.",
-    "To live is to suffer, to survive is to find some meaning in the suffering."
-])
-
-results = collection.query(
-    query_texts=["Finding purpose in suffering"],
-    n_results=2
-)
-print(results)
-
+# ====== 1. Initialize Chroma persistent client ======
+client = chromadb.PersistentClient(path=DB_PATH)
