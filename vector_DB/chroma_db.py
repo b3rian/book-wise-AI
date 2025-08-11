@@ -2,14 +2,14 @@ import os
 import chromadb
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 
-# ====== CONFIG ======
+# CONFIGs
 BOOKS_FOLDER = "/path/to/nietzsche_books"
 DB_PATH = "/path/to/chroma_storage/nietzsche_db"  # fixed storage location
 COLLECTION_NAME = "nietzsche_books"
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 
-# ====== 1. Initialize persistent Chroma client ======
+# 1. Initialize persistent Chroma client
 client = chromadb.PersistentClient(path=DB_PATH)
 
 # If collection exists, use it; otherwise, create it
