@@ -49,5 +49,15 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
 
     return answer
 
+# ---------- Example Usage ----------
+if __name__ == "__main__":
+    PERSIST_DIR = "./nietzsche_db"  # Path to your ChromaDB folder
+    COLLECTION_NAME = "nietzsche_collection"
+
+    user_question = "What does Nietzsche say about the meaning of life?"
+    response = rag_query(user_question, PERSIST_DIR, COLLECTION_NAME, n_results=5)
+
+    print("\n--- LLM Response ---\n")
+    print(response)
 
 
