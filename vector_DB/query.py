@@ -85,10 +85,10 @@ def generate_completion(
         raise
 
 def clean_title(filename: str) -> str:
-        name_without_ext = filename.rsplit('.', 1)[0]  # remove extension
-        cleaned = name_without_ext.replace('_', ' ')   # replace underscores with spaces
-        bold_title = f"**{cleaned}**" # add bold formatting
-        return cleaned.strip().title()
+    name_without_ext = filename.rsplit('.', 1)[0]  # remove extension
+    cleaned = name_without_ext.replace('_', ' ')   # replace underscores with spaces
+    bold_title = f"**{cleaned.strip().title()}**"  # add bold formatting and title case
+    return bold_title
 
 # ---------- RAG Pipeline ----------
 def rag_query(user_query: str, persist_directory: str, collection_name: str, n_results: int = 3) -> str:
