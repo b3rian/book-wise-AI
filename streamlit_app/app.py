@@ -43,7 +43,7 @@ if "typing_indicator" not in st.session_state:
 
 # App title and description
 st.markdown("---")
-st.set_page_config(page_title="Zarathustra AI", layout="wide", page_icon="🖼️")
+st.set_page_config(page_title="Zarathustra AI", layout="wide", page_icon="🤖")
 st.markdown("""
 <style>
 html, body, [class*="css"] {
@@ -55,7 +55,7 @@ body {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Zarathustra AI")
+st.title("🦅 Zarathustra AI 🌄")
 st.markdown("""
 **"Thus spoke the AI..."**  
 
@@ -202,7 +202,7 @@ preset_prompts = [
     "What did Nietzsche say about morality?"
 ]
 
-st.markdown("### 🤖 Quick Prompts")
+st.markdown("### Quick Prompts 🤖")
 cols = st.columns(len(preset_prompts))
 st.markdown("---")
 for idx, preset in enumerate(preset_prompts):
