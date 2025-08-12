@@ -78,13 +78,8 @@ def show_typing_indicator():
 
 # Display current conversation messages
 current_messages = st.session_state.conversations[st.session_state.current_conversation]["messages"]
-NIETZSCHE_AVATAR = "assets/Nietzsche.jpg"  # local file in your project folder
-USER_AVATAR = "assets/Nietzsche.png"       # local file in your project folder
-
-# Display messages with local avatars
 for message in current_messages:
-    avatar = USER_AVATAR if message["role"] == "user" else NIETZSCHE_AVATAR
-    with st.chat_message(message["role"], avatar=avatar):
+    with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 # Function to stream API response
@@ -104,7 +99,7 @@ async def display_stream_response(prompt: str, n_results: int):
     st.session_state.typing_indicator = True
     asyncio.create_task(asyncio.to_thread(show_typing_indicator))
     
-    with st.chat_message("assistant", avatar=NIETZSCHE_AVATAR):
+    with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
         
