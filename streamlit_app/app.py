@@ -171,6 +171,22 @@ with st.sidebar:
         help="How many document chunks to retrieve from the vector database"
     )
 
+# Quick preset prompts (above chat input)
+preset_prompts = [
+    "Summarize Beyond Good and Evil",
+    "Explain Eternal Recurrence",
+    "What is the Übermensch?",
+    "What did Nietzsche say about morality?"
+]
+
+st.markdown("### Quick Prompts")
+cols = st.columns(len(preset_prompts))
+for idx, preset in enumerate(preset_prompts):
+    if cols[idx].button(preset):
+        with st.chat_message("user"):
+            st.markdown(preset)
+        asyncio.run(display_stream_response(preset, n_results))
+
 # Chat input
 if prompt := st.chat_input("Ask your question about Nietzsche"):
     # Display user message
