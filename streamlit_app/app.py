@@ -150,13 +150,14 @@ with st.sidebar:
    
     # Tags for current conversation
     current_tags = st.text_input(
-        "Tags for this conversation (comma separated)",
+        "🏷️ Tags for this conversation (comma separated)",
         value=", ".join(st.session_state.conversations[st.session_state.current_conversation]["tags"]),
         on_change=lambda: update_tags(
             st.session_state.current_conversation,
             [t.strip() for t in st.session_state.tags_input.split(",") if t.strip()]
         ),
-        key="tags_input"
+        key="tags_input", help="Tags help you find conversations later. Separate multiple tags with commas.", 
+        placeholder="e.g. morality, nihilism"
     )
     
     # Conversation history list with formatted dates
