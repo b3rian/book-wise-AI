@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Your FastAPI backend endpoint
-API_URL = "http://127.0.0.1:8000/prompt" 
+API_URL = "http://127.0.0.1:8000/prompt-stream" 
 
 st.set_page_config(page_title="Philosopher Bot", page_icon="🤖", layout="centered")
 
