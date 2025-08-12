@@ -44,6 +44,16 @@ if "typing_indicator" not in st.session_state:
 # App title and description
 st.markdown("---")
 st.set_page_config(page_title="Zarathustra AI", layout="wide", page_icon="🖼️")
+st.markdown("""
+<style>
+html, body, [class*="css"] {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+body {
+    font-size: 16px;
+}
+</style>
+""", unsafe_allow_html=True)
 st.title("Zarathustra AI")
 st.markdown("""
 Ask questions about Nietzsche's philosophy and get answers powered by RAG.
