@@ -72,4 +72,3 @@ async def rag_endpoint(request: QueryRequest):
     except Exception as e:
         logger.exception("Error processing RAG query")
         raise HTTPException(status_code=500, detail="Internal server error")
-    
