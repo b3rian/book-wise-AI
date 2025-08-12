@@ -2,9 +2,10 @@ import streamlit as st
 import httpx
 import json
 from typing import AsyncIterable, Awaitable
+import asyncio
 
 # Configuration
-API_URL = "http://localhost:8000/prompt-stream"  # Update if your API is hosted elsewhere
+API_URL = "http://127.0.0.1:8000/prompt-stream"  # Update if your API is hosted elsewhere
 DEFAULT_PROMPT = "What did Nietzsche say about morality?"
 DEFAULT_N_RESULTS = 3
 
