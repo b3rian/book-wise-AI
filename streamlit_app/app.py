@@ -63,7 +63,7 @@ Zarathustra AI is your gateway into the mind of **Friedrich Nietzsche**. It spea
 
 Not a general chatbot. Not a modern moralist. Only Nietzsche. Always Nietzsche. 
 """)
-
+st.image("assets/nietzsche.png", width=80)
 st.markdown("<br><br>", unsafe_allow_html=True)
  
 # Animated typing indicator
