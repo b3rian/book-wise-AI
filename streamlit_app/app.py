@@ -57,8 +57,10 @@ body {
 
 st.title("Zarathustra AI")
 st.markdown("""
-Ask questions about Nietzsche's philosophy and get answers powered by RAG.
-Responses are streamed directly from the API.
+**"I teach you the overthinker, the dreamer, the seeker."**  
+Zarathustra AI is not here to give you mere answers — it is here to challenge you, to unsettle your certainties, and to lead you toward higher thought. A voice of wisdom in silicon form, it blends the eternal questions of philosophy with the boundless reach of artificial intelligence.  
+
+Ask. Wonder. Transcend. 
 """)
 
 st.markdown("<br><br>", unsafe_allow_html=True)
