@@ -3,13 +3,30 @@ import httpx
 import json
 from typing import AsyncIterable
 import asyncio
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import time
 
 # Configuration
 API_URL = "http://127.0.0.1:8000/prompt-stream"
 DEFAULT_PROMPT = "What did Nietzsche say about morality?"
 DEFAULT_N_RESULTS = 3
+
+# Date formatting function
+def format_conversation_date(created_at_str):
+    # Parse the stored datetime string
+    created_at = datetime.strptime(created_at_str, "%Y-%m-%d %H:%M:%S").date()
+    today = date.today()
+    
+    if created_at == today:
+        return "Today"
+    elif created_at == today - timedelta(days=1):
+        return "Yesterday"
+    elif created_at >= today - timedelta(days=6):  # Within last week
+        return created_at.strftime("%A")  # Monday, Tuesday, etc.
+    elif created_at.year == today.year:
+        return created_at.strftime("%b %d")  # Aug 12
+    else:
+        return created_at.strftime("%Y-%m-%d")  # Fallback to full date
 
 # Initialize session state
 if "conversations" not in st.session_state:
@@ -126,7 +143,7 @@ with st.sidebar:
         key="tags_input"
     )
     
-    # Conversation history list
+    # Conversation history list with formatted dates
     st.subheader("History")
     for conv_id, conv_data in sorted(
         st.session_state.conversations.items(),
@@ -135,9 +152,10 @@ with st.sidebar:
     ):
         preview = ", ".join([msg["content"][:20] + "..." for msg in conv_data["messages"][:2] if msg["role"] == "user"])
         tags_display = " ".join([f"`{tag}`" for tag in conv_data["tags"]])
+        friendly_date = format_conversation_date(conv_data["created_at"])
         
         if st.button(
-            f"{conv_data['created_at']} - {preview} {tags_display}",
+            f"{friendly_date} - {preview} {tags_display}",
             key=f"conv_{conv_id}",
             use_container_width=True
         ):
