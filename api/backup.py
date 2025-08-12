@@ -212,3 +212,21 @@ def rag_endpoint(request: QueryRequest):
     except Exception as e:
         logger.exception("Error processing RAG query")
         raise HTTPException(status_code=500, detail="Internal server error")
+
+@app.post("/prompt-stream")
+async def rag_stream_endpoint(request: QueryRequest):
+    try:
+        return StreamingResponse(
+            rag_query_stream(
+                request.prompt,
+                persist_directory=PERSIST_DIR,
+                collection_name=COLLECTION_NAME,
+                n_results=request.n_results
+            ),
+            media_type="text/plain"
+        )
+    except EnvironmentError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        logger.exception("Error processing streaming RAG query")
+        raise HTTPException(status_code=500, detail="Internal server error")
