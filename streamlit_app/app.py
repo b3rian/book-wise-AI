@@ -57,10 +57,11 @@ body {
 
 st.title("Zarathustra AI")
 st.markdown("""
-**"I teach you the overthinker, the dreamer, the seeker."**  
-Zarathustra AI is not here to give you mere answers — it is here to challenge you, to unsettle your certainties, and to lead you toward higher thought. A voice of wisdom in silicon form, it blends the eternal questions of philosophy with the boundless reach of artificial intelligence.  
+**"Thus spoke the AI..."**  
 
-Ask. Wonder. Transcend. 
+Zarathustra AI is your gateway into the mind of **Friedrich Nietzsche**. It speaks only in the voice of the philosopher — exploring his ideas, his parables, and his challenges to morality, truth, and the self.  
+
+Not a general chatbot. Not a modern moralist. Only Nietzsche. Always Nietzsche. 
 """)
 
 st.markdown("<br><br>", unsafe_allow_html=True)
