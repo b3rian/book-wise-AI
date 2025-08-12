@@ -142,7 +142,7 @@ def update_tags(conv_id, tags):
 # Sidebar - Conversation management
 with st.sidebar:
     st.markdown("---")
-    st.header("🌄 Chats with Zarathustra AI")
+    st.header("🌄 Chat with Zarathustra AI")
      
     
     # New conversation button
