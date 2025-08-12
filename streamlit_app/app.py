@@ -42,6 +42,7 @@ if "typing_indicator" not in st.session_state:
     st.session_state.typing_indicator = False
 
 # App title and description
+st.markdown("---")
 st.title("Nietzsche RAG Chat")
 st.markdown("""
 Ask questions about Nietzsche's philosophy and get answers powered by RAG.
@@ -130,6 +131,7 @@ def update_tags(conv_id, tags):
 
 # Sidebar - Conversation management
 with st.sidebar:
+    st.markdown("---")
     st.header("Chats")
     
     # New conversation button
@@ -148,6 +150,7 @@ with st.sidebar:
     )
     
     # Conversation history list with formatted dates
+    st.markdown("---")
     st.subheader("Chat History")
     for conv_id, conv_data in sorted(
         st.session_state.conversations.items(),
@@ -166,6 +169,7 @@ with st.sidebar:
             load_conversation(conv_id)
     
     # Configuration
+    st.markdown("---")
     st.subheader("Configuration")
     n_results = st.slider(
         "Number of context chunks",
