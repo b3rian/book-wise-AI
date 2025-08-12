@@ -187,6 +187,7 @@ preset_prompts = [
     "What did Nietzsche say about morality?"
 ]
 
+st.markdown("---")
 st.markdown("### Quick Prompts")
 cols = st.columns(len(preset_prompts))
 for idx, preset in enumerate(preset_prompts):
