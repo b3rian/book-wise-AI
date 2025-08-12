@@ -126,7 +126,7 @@ def update_tags(conv_id, tags):
 
 # Sidebar - Conversation management
 with st.sidebar:
-    st.header("Conversations")
+    st.header("Chats")
     
     # New conversation button
     if st.button("+ New Conversation"):
