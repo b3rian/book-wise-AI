@@ -170,8 +170,6 @@ with st.sidebar:
         value=DEFAULT_N_RESULTS,
         help="How many document chunks to retrieve from the vector database"
     )
-    
-    st.markdown(f"API endpoint: `{API_URL}`")
 
 # Chat input
 if prompt := st.chat_input("Ask your question about Nietzsche"):
