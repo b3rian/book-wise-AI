@@ -48,6 +48,10 @@ Ask questions about Nietzsche's philosophy and get answers powered by RAG.
 Responses are streamed directly from the API.
 """)
 
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True) 
+st.markdown("<br><br>", unsafe_allow_html=True) 
+
 # Animated typing indicator
 def show_typing_indicator():
     placeholder = st.empty()
@@ -144,7 +148,7 @@ with st.sidebar:
     )
     
     # Conversation history list with formatted dates
-    st.subheader("History")
+    st.subheader("Chat History")
     for conv_id, conv_data in sorted(
         st.session_state.conversations.items(),
         key=lambda x: x[1]["created_at"],
