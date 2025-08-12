@@ -10,6 +10,7 @@ from chromadb.config import Settings
 from fastapi.responses import StreamingResponse
 from typing import AsyncGenerator
 import json
+import asyncio
 
 # Load environment variables from .env
 load_dotenv()
@@ -83,7 +84,7 @@ def get_groq_client() -> Groq:
         logger.error(f"Failed to initialize Groq client: {e}")
         raise
 
-def generate_completion_stream(
+async def generate_completion_stream(
     prompt: str,
     model: str,
     role: str = "user",
@@ -101,13 +102,13 @@ def generate_completion_stream(
 
     try:
         logger.info("Sending request to Groq API...")
-        stream = client.chat.completions.create(
+        stream = await client.chat.completions.create(
             messages=messages,
             model=MODEL_NAME,
             stream=True
         )
          
-        for chunk in stream:
+        async for chunk in stream:
             content = chunk.choices[0].delta.content
             if content:
                 yield content
