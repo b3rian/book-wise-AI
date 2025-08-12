@@ -61,9 +61,7 @@ Responses are streamed directly from the API.
 """)
 
 st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True) 
-st.markdown("<br><br>", unsafe_allow_html=True) 
-
+ 
 # Animated typing indicator
 def show_typing_indicator():
     placeholder = st.empty()
