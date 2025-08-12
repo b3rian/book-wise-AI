@@ -83,7 +83,7 @@ def get_groq_client() -> Groq:
         logger.error(f"Failed to initialize Groq client: {e}")
         raise
 
-def generate_completion(
+def generate_completion_stream(
     prompt: str,
     model: str,
     role: str = "user",
@@ -145,7 +145,7 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     )
 
     # Step 4: Call the LLM
-    answer = generate_completion(
+    answer = generate_completion_stream(
         prompt=prompt,
         system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
         model=MODEL_NAME
@@ -176,4 +176,47 @@ def rag_endpoint(request: QueryRequest):
         raise HTTPException(status_code=500, detail=str(e))
     except Exception as e:
         logger.exception("Error processing RAG query")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+@app.post("/prompt/stream")
+async def rag_stream_endpoint(request: QueryRequest):
+    """Streaming version of the RAG endpoint"""
+    try:
+        # First retrieve context (non-streaming part)
+        search_results = query_chromadb(
+            persist_directory=PERSIST_DIR,
+            collection_name=COLLECTION_NAME,
+            query_text=request.prompt,
+            n_results=request.n_results
+        )
+        
+        # Build context (same as before)
+        context_with_titles = []
+        for doc, meta in zip(search_results["documents"][0], search_results["metadatas"][0]):
+            raw_title = meta.get("source", "Unknown Source")
+            book_title = clean_title(raw_title)
+            context_with_titles.append(f"From '{book_title}':\n{doc}")
+
+        context_text = "\n\n".join(context_with_titles)
+        
+        # Build final prompt
+        prompt = (
+            f"Use the following excerpts from Nietzsche's works to answer the question.\n\n"
+            f"{context_text}\n\n"
+            f"Question: {request.prompt}\n\n"
+            f"Answer:"
+        )
+        
+        # Return streaming response
+        return StreamingResponse(
+            generate_completion_stream(
+                prompt=prompt,
+                system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
+                model=MODEL_NAME
+            ),
+            media_type="text/event-stream"
+        )
+        
+    except Exception as e:
+        logger.exception("Error in streaming RAG query")
         raise HTTPException(status_code=500, detail="Internal server error")
