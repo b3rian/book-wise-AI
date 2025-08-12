@@ -155,7 +155,6 @@ with st.sidebar:
     st.markdown("---")
     st.header("🌄 Chat with Zarathustra AI")
      
-    
     # New conversation button
     if st.button("💬 New Chat", key="new_chat_button"):
         new_conversation()
@@ -210,7 +209,7 @@ preset_prompts = [
     "What did Nietzsche say about morality?"
 ]
 
-st.markdown("### Quick Prompts 🤖")
+st.markdown("### 🤖 Quick Prompts 🤖")
 cols = st.columns(len(preset_prompts))
 st.markdown("---")
 for idx, preset in enumerate(preset_prompts):
