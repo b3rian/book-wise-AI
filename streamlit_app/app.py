@@ -54,8 +54,18 @@ body {
 }
 </style>
 """, unsafe_allow_html=True)
+col1, col2 = st.columns([0.15, 0.85])  # Adjust ratio to taste
 
-st.title("🦅 Zarathustra AI 🌄")
+with col1:
+    st.image(
+        "assets/nietzsche.png",
+        width=80
+    )
+
+with col2:
+    st.title("Zarathustra AI 🦅")
+    st.caption("An AI inspired exclusively by the philosophy of Friedrich Nietzsche")
+
 st.markdown("""
 **"Thus spoke the AI..."**  
 
@@ -63,7 +73,7 @@ Zarathustra AI is your gateway into the mind of **Friedrich Nietzsche**. It spea
 
 Not a general chatbot. Not a modern moralist. Only Nietzsche. Always Nietzsche. 
 """)
-st.image("assets/nietzsche.png", width=80)
+
 st.markdown("<br><br>", unsafe_allow_html=True)
  
 # Animated typing indicator
