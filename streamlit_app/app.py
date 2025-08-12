@@ -222,7 +222,7 @@ for idx, preset in enumerate(preset_prompts):
         asyncio.run(display_stream_response(preset, n_results))
 
 # Chat input
-if prompt := st.chat_input("Ask your question about Nietzsche"):
+if prompt := st.chat_input("What wisdom do you seek from the mountains of Zarathustra?"):
     # Display user message
     with st.chat_message("user"):
         st.markdown(prompt)
