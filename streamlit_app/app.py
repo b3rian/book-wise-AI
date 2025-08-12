@@ -84,4 +84,4 @@ with st.sidebar:
     
     if st.button("Clear chat history"):
         st.session_state.messages = []
-        st.experimental_rerun()
+        st.rerun()
