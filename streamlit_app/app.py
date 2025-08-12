@@ -8,9 +8,7 @@ import time
 
 # Configuration
 API_URL = "http://127.0.0.1:8000/prompt-stream"
-DEFAULT_PROMPT = "What did Nietzsche say about morality?"
-DEFAULT_N_RESULTS = 3
-
+ 
 # Date formatting function
 def format_conversation_date(created_at_str):
     # Parse the stored datetime string
@@ -54,8 +52,8 @@ body {
 }
 </style>
 """, unsafe_allow_html=True)
-col1, col2 = st.columns([0.15, 0.85])  # Adjust ratio to taste
 
+col1, col2 = st.columns([0.15, 0.85])
 with col1:
     st.image(
         "assets/nietzsche.png",
@@ -200,7 +198,7 @@ with st.sidebar:
         "Number of context chunks",
         min_value=1,
         max_value=5,
-        value=DEFAULT_N_RESULTS,
+        value=3,
         help="How many document chunks to retrieve from the vector database"
     )
 
