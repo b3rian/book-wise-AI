@@ -54,6 +54,7 @@ body {
 }
 </style>
 """, unsafe_allow_html=True)
+
 st.title("Zarathustra AI")
 st.markdown("""
 Ask questions about Nietzsche's philosophy and get answers powered by RAG.
@@ -144,9 +145,9 @@ with st.sidebar:
     st.header("Chats")
     
     # New conversation button
-    if st.button("+ New Chat"):
+    if st.button("💬 New Chat", key="new_chat_button"):
         new_conversation()
-    
+   
     # Tags for current conversation
     current_tags = st.text_input(
         "Tags for this conversation (comma separated)",
