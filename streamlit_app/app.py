@@ -129,7 +129,7 @@ with st.sidebar:
     st.header("Chats")
     
     # New conversation button
-    if st.button("+ New Conversation"):
+    if st.button("+ New Chat"):
         new_conversation()
     
     # Tags for current conversation
