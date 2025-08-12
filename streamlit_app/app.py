@@ -161,7 +161,7 @@ with st.sidebar:
     
     # Conversation history list with formatted dates
     st.markdown("---")
-    st.subheader("Chat History")
+    st.subheader("📜 Chat History")
     for conv_id, conv_data in sorted(
         st.session_state.conversations.items(),
         key=lambda x: x[1]["created_at"],
@@ -180,7 +180,7 @@ with st.sidebar:
     
     # Configuration
     st.markdown("---")
-    st.subheader("Configuration")
+    st.subheader("⚙️ Configuration")
     n_results = st.slider(
         "Number of context chunks",
         min_value=1,
