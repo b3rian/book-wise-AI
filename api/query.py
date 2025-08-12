@@ -84,12 +84,12 @@ def get_groq_client() -> Groq:
         logger.error(f"Failed to initialize Groq client: {e}")
         raise
 
-async def generate_completion_stream(
+def generate_completion(
     prompt: str,
     model: str,
     role: str = "user",
     system_prompt: Optional[str] = None
-) -> AsyncGenerator[str, None]:
+) -> str:
     """Generate a completion from Groq API using a given prompt and model."""
     client = get_groq_client()
      
@@ -102,20 +102,16 @@ async def generate_completion_stream(
 
     try:
         logger.info("Sending request to Groq API...")
-        stream = await client.chat.completions.create(
+        response = client.chat.completions.create(
             messages=messages,
-            model=MODEL_NAME,
-            stream=True
+            model=MODEL_NAME
         )
-         
-        async for chunk in stream:
-            content = chunk.choices[0].delta.content
-            if content:
-                yield content
-                
+        result = response.choices[0].message.content
+        logger.info("Response received successfully.")
+        return result
     except Exception as e:
-        logger.error(f"Groq API streaming error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Error generating completion: {e}")
+        raise
 
 def clean_title(filename: str) -> str:
     name_without_ext = filename.rsplit('.', 1)[0]  # remove extension
@@ -146,7 +142,7 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     )
 
     # Step 4: Call the LLM
-    answer = generate_completion_stream(
+    answer = generate_completion(
         prompt=prompt,
         system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
         model=MODEL_NAME
