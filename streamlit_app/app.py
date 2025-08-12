@@ -43,8 +43,8 @@ if "typing_indicator" not in st.session_state:
 
 # App title and description
 st.markdown("---")
-st.set_page_config(page_title="Nietzsche RAG Chat", layout="wide", page_icon="🖼️")
-st.title("Nietzsche RAG Chat")
+st.set_page_config(page_title="Zarathustra AI", layout="wide", page_icon="🖼️")
+st.title("Zarathustra AI")
 st.markdown("""
 Ask questions about Nietzsche's philosophy and get answers powered by RAG.
 Responses are streamed directly from the API.
