@@ -3,7 +3,7 @@ from pathlib import Path
 
 # Setup repo info
 username = "b3rian"
-repo_name = "streamlit-ui"
+repo_name = "zarathustra-ai"
 local_dir =  Path(__file__).resolve().parent # Automatically detect current folder
 repo_type = "space"
 space_sdk = "docker" 
