@@ -1,0 +1,68 @@
+name: Create & Push Docker Image to Docker Hub and Deploy Streamlit UI to Hugging Face & Render
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKER_IMAGE_BASE: b3rian/image-classifier-ui
+  BRANCH_NAME: deploy-streamlit-hugging-face
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the deploy-streamlit branch code
+    - name: Checkout deploy-streamlit branch
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.BRANCH_NAME }}
+
+    # Step 2: Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+
+    # Step 3: Install Python dependencies
+    - name: Install Python packages
+      run: |
+        python -m pip install --upgrade pip
+        pip install huggingface_hub
+
+    # Step 4: Log in to Docker Hub with secrets
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # Step 5: Set up Docker Buildx
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    # Step 6: Define Docker tags
+    - name: Define Docker tags
+      id: meta
+      run: |
+        MANUAL_TAG="v1.0.0"
+        echo "TAG=${MANUAL_TAG}" >> $GITHUB_OUTPUT
+        echo "FULL_TAG=${{ env.DOCKER_IMAGE_BASE }}:${MANUAL_TAG}" >> $GITHUB_OUTPUT
+        echo "LATEST_TAG=${{ env.DOCKER_IMAGE_BASE }}:latest" >> $GITHUB_OUTPUT
+
+    # Step 7: Build and push Docker image
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: |
+          ${{ steps.meta.outputs.FULL_TAG }}
+          ${{ steps.meta.outputs.LATEST_TAG }}
+
+    # Step 8: Deploy to Hugging Face Spaces
+    - name: Deploy to Hugging Face Spaces
+      run: |
+        huggingface-cli login --token "${{ secrets.HF_TOKEN }}"
+        python deploy.py
