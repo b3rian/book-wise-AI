@@ -1,11 +1,11 @@
-name: Create & Push Docker Image to Docker Hub and Deploy Streamlit UI to Hugging Face & Render
+name: Create & Push Docker Image to Docker Hub and Deploy Streamlit app to Hugging Face & Render
 
 on:
   workflow_dispatch:
 
 env:
-  DOCKER_IMAGE_BASE: b3rian/image-classifier-ui
-  BRANCH_NAME: deploy-streamlit-hugging-face
+  DOCKER_IMAGE_BASE: b3rian/zarathustra-AI-ui
+  BRANCH_NAME: main
 
 jobs:
   deploy:
