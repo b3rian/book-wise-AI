@@ -56,7 +56,7 @@ body {
 col1, col2 = st.columns([0.15, 0.85])
 with col1:
     st.image(
-        "assets/nietzsche.png",
+        "streamlit_app\Nietzsche.png",
         width=80
     )
 
