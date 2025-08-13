@@ -39,7 +39,7 @@ app.add_middleware(
 class QueryRequest(BaseModel):
     """Request model for RAG queries."""
     prompt: str
-    n_results: Optional[int] = 3
+    n_results: Optional[int] = 5
 
 class QueryResponse(BaseModel):
     """Response model for RAG queries."""
