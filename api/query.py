@@ -154,3 +154,36 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
 
     return answer
 
+async def rag_query_stream(
+    user_query: str,
+    persist_directory: str,
+    collection_name: str,
+    n_results: int = 5
+) -> AsyncGenerator[str, None]:
+    # Step 1: Retrieve relevant chunks (synchronous operation)
+    search_results = query_chromadb(persist_directory, collection_name, user_query, n_results=n_results)
+
+    # Step 2: Combine retrieved chunks into context
+    context_with_titles = []
+    for doc, meta in zip(search_results["documents"][0], search_results["metadatas"][0]):
+        raw_title = meta.get("source", "Unknown Source")
+        book_title = clean_title(raw_title)
+        context_with_titles.append(f"From '{book_title}':\n{doc}")
+
+    context_text = "\n\n".join(context_with_titles)
+
+    # Step 3: Build final prompt
+    prompt = (
+        f"Use the following excerpts from Nietzsche's works to answer the question.\n\n"
+        f"{context_text}\n\n"
+        f"Question: {user_query}\n\n"
+        f"Answer:"
+    )
+
+    # Step 4: Stream the LLM response
+    async for chunk in generate_completion_stream(
+        prompt=prompt,
+        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
+        model=MODEL_NAME
+    ):
+        yield chunk
