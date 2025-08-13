@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv 
 import chromadb
-from api.query import rag_query, query_chromadb
+from api.query import rag_query_stream, rag_query, query_chromadb
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
@@ -43,6 +43,9 @@ class QueryRequest(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
 
+class StreamingResponseModel(BaseModel):
+    chunk: str
+
 # Health check endpoint
 @app.get("/health")
 def health_check():
@@ -71,4 +74,22 @@ async def rag_endpoint(request: QueryRequest):
         raise HTTPException(status_code=500, detail=str(e))
     except Exception as e:
         logger.exception("Error processing RAG query")
+        raise HTTPException(status_code=500, detail="Internal server error")
+    
+@app.post("/prompt-stream")
+async def rag_stream_endpoint(request: QueryRequest):
+    try:
+        return StreamingResponse(
+            rag_query_stream(
+                request.prompt,
+                persist_directory=PERSIST_DIR,
+                collection_name=COLLECTION_NAME,
+                n_results=request.n_results
+            ),
+            media_type="text/plain"
+        )
+    except EnvironmentError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as e:
+        logger.exception("Error processing streaming RAG query")
         raise HTTPException(status_code=500, detail="Internal server error")
