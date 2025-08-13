@@ -37,13 +37,16 @@ app.add_middleware(
 
 # ---------- Models ----------
 class QueryRequest(BaseModel):
+    """Request model for RAG queries."""
     prompt: str
     n_results: Optional[int] = 3
 
 class QueryResponse(BaseModel):
+    """Response model for RAG queries."""
     answer: str
 
 class StreamingResponseModel(BaseModel):
+    """Model for streaming responses."""
     chunk: str
 
 # ---------- Startup ----------
