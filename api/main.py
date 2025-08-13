@@ -46,11 +46,6 @@ class QueryResponse(BaseModel):
 class StreamingResponseModel(BaseModel):
     chunk: str
 
-# Health check endpoint
-@app.get("/health")
-def health_check():
-    return {"status": "API is working just fine"}
-
 # ---------- Startup ----------
 @app.on_event("startup")
 def startup_event():
@@ -60,8 +55,14 @@ def startup_event():
     logger.info("ChromaDB client initialized successfully.")
 
 # ---------- Endpoints ----------
+@app.get("/health")
+def health_check():
+    """Health check endpoint to verify API is running."""
+    return {"status": "API is working just fine"}
+
 @app.post("/prompt", response_model=QueryResponse)
 async def rag_endpoint(request: QueryRequest):
+    """Endpoint to handle RAG queries."""
     try:
         answer = rag_query(
             request.prompt,
@@ -78,6 +79,7 @@ async def rag_endpoint(request: QueryRequest):
     
 @app.post("/prompt-stream")
 async def rag_stream_endpoint(request: QueryRequest):
+    """Endpoint to handle streaming RAG queries."""
     try:
         return StreamingResponse(
             rag_query_stream(
