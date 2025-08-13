@@ -84,7 +84,7 @@ def get_groq_client() -> Groq:
         logger.error(f"Failed to initialize Groq client: {e}")
         raise
 
-def generate_completion(
+async def generate_completion(
     prompt: str,
     model: str,
     role: str = "user",
