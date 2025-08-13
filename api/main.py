@@ -49,6 +49,7 @@ class StreamingResponseModel(BaseModel):
 # ---------- Startup ----------
 @app.on_event("startup")
 def startup_event():
+    """Initialize ChromaDB client on startup."""
     global chroma_client, chroma_collection
     chroma_client = chromadb.PersistentClient(path=PERSIST_DIR)
     chroma_collection = chroma_client.get_collection(name=COLLECTION_NAME)
