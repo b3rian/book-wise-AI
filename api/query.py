@@ -184,7 +184,7 @@ async def rag_query_stream(
     # Step 4: Stream the LLM response
     async for chunk in generate_completion_stream(
         prompt=prompt,
-        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
+        system_prompt= system_prompt,
         model=MODEL_NAME
     ):
         yield chunk
