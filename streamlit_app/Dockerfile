@@ -23,4 +23,4 @@ RUN apt-get update && apt-get install -y \
 
 EXPOSE $PORT
 
-CMD ["streamlit", "run", "streamlit_app/main.py", "--server.port=7860", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "streamlit_app/app.py", "--server.port=7860", "--server.address=0.0.0.0"]
