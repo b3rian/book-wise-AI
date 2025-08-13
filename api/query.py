@@ -84,12 +84,12 @@ def get_groq_client() -> Groq:
         logger.error(f"Failed to initialize Groq client: {e}")
         raise
 
-async def generate_completion(
+async def generate_completion_stream(
     prompt: str,
     model: str,
     role: str = "user",
     system_prompt: Optional[str] = None
-) -> str:
+) -> AsyncGenerator[str, None]:
     """Generate a completion from Groq API using a given prompt and model."""
     client = get_groq_client()
      
@@ -101,16 +101,20 @@ async def generate_completion(
     messages.append({"role": role, "content": prompt})
 
     try:
-        logger.info("Sending request to Groq API...")
+        logger.info("Sending streaming request to Groq API...")
         response = client.chat.completions.create(
             messages=messages,
-            model=MODEL_NAME
+            model=MODEL_NAME,
+            stream=True
         )
-        result = response.choices[0].message.content
-        logger.info("Response received successfully.")
-        return result
+        
+        for chunk in response:
+            content = chunk.choices[0].delta.content
+            if content is not None:
+                yield content
+                
     except Exception as e:
-        logger.error(f"Error generating completion: {e}")
+        logger.error(f"Error generating streaming completion: {e}")
         raise
 
 def clean_title(filename: str) -> str:
