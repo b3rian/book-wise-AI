@@ -8,6 +8,7 @@ from groq import Groq, GroqError
 import chromadb
 from chromadb.config import Settings
 from fastapi.responses import StreamingResponse
+from api.configs import get_nietzsche_system_prompt
 from typing import AsyncGenerator
 import json
 import asyncio
@@ -24,7 +25,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 PERSIST_DIR = os.getenv("PERSIST_DIR", r"D:\Documents\chromadb\nietzsche_db")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "nietzsche_books")
 MODEL_NAME = os.getenv("GROQ_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
-
+system_prompt = get_nietzsche_system_prompt()
 # ---------- FastAPI App ----------
 app = FastAPI(
     title="Nietzsche RAG API",
@@ -148,7 +149,7 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     # Step 4: Call the LLM
     answer = generate_completion_stream(
         prompt=prompt,
-        system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
+        system_prompt= system_prompt,
         model=MODEL_NAME
     )
 
