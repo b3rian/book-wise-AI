@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_IMAGE_BASE: b3rian/zarathustra-AI-ui
+  DOCKER_IMAGE_BASE: b3rian/zarathustra-ai-ui
   BRANCH_NAME: main
 
 jobs:
