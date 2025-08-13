@@ -146,7 +146,7 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
     )
 
     # Step 4: Call the LLM
-    answer = generate_completion(
+    answer = generate_completion_stream(
         prompt=prompt,
         system_prompt="You are a philosophical assistant specializing in Friedrich Nietzsche's works. Always cite the book title when using excerpts.",
         model=MODEL_NAME
@@ -154,27 +154,3 @@ def rag_query(user_query: str, persist_directory: str, collection_name: str, n_r
 
     return answer
 
-# ---------- Startup ----------
-@app.on_event("startup")
-def startup_event():
-    global chroma_client, chroma_collection
-    chroma_client = chromadb.PersistentClient(path=PERSIST_DIR)
-    chroma_collection = chroma_client.get_collection(name=COLLECTION_NAME)
-    logger.info("ChromaDB client initialized successfully.")
-
-# ---------- Endpoints ----------
-@app.post("/prompt", response_model=QueryResponse)
-def rag_endpoint(request: QueryRequest):
-    try:
-        answer = rag_query(
-            request.prompt,
-            persist_directory=PERSIST_DIR,
-            collection_name=COLLECTION_NAME,
-            n_results=request.n_results
-        )
-        return QueryResponse(answer=answer)
-    except EnvironmentError as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    except Exception as e:
-        logger.exception("Error processing RAG query")
-        raise HTTPException(status_code=500, detail="Internal server error")
